@@ -25,19 +25,20 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 
-// Types
-type CheckStatus = "pass" | "fail" | "warning";
+import type { AuditCategoryId, AuditCheckDefinition, AuditCheckResult, CheckStatus } from "@/lib/audit";
+import { computeAuditScore, createRegistry, resolveAuditRun, downloadAuditReportPdf } from "@/lib/audit";
 
+// Types
 interface CheckItem {
   id: string;
   name: string;
-  status: CheckStatus;
+  status: "pass" | "fail" | "warning";
   description: string;
   recommendation?: string;
 }
 
 interface Category {
-  id: string;
+  id: AuditCategoryId;
   name: string;
   icon: React.ElementType;
   score: number;
@@ -335,7 +336,7 @@ function ScoreRing({ score, size = "large" }: { score: number; size?: "small" | 
   );
 }
 
-function StatusIcon({ status }: { status: CheckStatus }) {
+function StatusIcon({ status }: { status: "pass" | "fail" | "warning" }) {
   switch (status) {
     case "pass":
       return <CheckCircle className="w-5 h-5 text-green-500" />;
@@ -427,22 +428,57 @@ function AnalyzeContent() {
   // Generate mock data
   const categories = generateMockData(url);
 
-  // Calculate overall score
-  const overallScore = Math.round(
-    categories.reduce((sum, cat) => sum + cat.score, 0) / categories.length
+  // Convert mock data into the audit model (temporary until real analyzers land)
+  const definitions: AuditCheckDefinition[] = categories.flatMap((cat) =>
+    cat.items.map((item) => ({
+      id: item.id,
+      title: item.name,
+      category: cat.id,
+      severity:
+        cat.id === "security" ? "critical" : cat.id === "performance" ? "high" : cat.id === "conversion" ? "high" : "medium",
+      whyImportant: item.description,
+      howToFix: item.recommendation ?? "No action needed.",
+    }))
   );
 
+  const results: AuditCheckResult[] = categories.flatMap((cat) =>
+    cat.items.map((item) => ({
+      checkId: item.id,
+      status: (item.status === "warning" ? "warn" : item.status) as CheckStatus,
+      evidence: [item.description],
+      urlsTested: [url.startsWith("http") ? url : `https://${url}`],
+    }))
+  );
+
+  const run = {
+    url: url.startsWith("http") ? url : `https://${url}`,
+    auditedAt: new Date().toISOString(),
+    checks: results,
+  };
+
+  const registry = createRegistry(definitions);
+  const resolvedChecks = resolveAuditRun(run, registry);
+  const score = computeAuditScore({ definitions, results });
+
+  const categoryScoreMap = new Map(score.byCategory.map((c) => [c.category, c.score0to100] as const));
+  const scoredCategories = categories.map((cat) => ({
+    ...cat,
+    score: categoryScoreMap.get(cat.id) ?? 0,
+  }));
+
+  const overallScore = score.overall.score0to100;
+
   // Count totals
-  const totalChecks = categories.reduce((sum, cat) => sum + cat.items.length, 0);
-  const passedChecks = categories.reduce(
+  const totalChecks = scoredCategories.reduce((sum, cat) => sum + cat.items.length, 0);
+  const passedChecks = scoredCategories.reduce(
     (sum, cat) => sum + cat.items.filter((i) => i.status === "pass").length,
     0
   );
-  const failedChecks = categories.reduce(
+  const failedChecks = scoredCategories.reduce(
     (sum, cat) => sum + cat.items.filter((i) => i.status === "fail").length,
     0
   );
-  const warningChecks = categories.reduce(
+  const warningChecks = scoredCategories.reduce(
     (sum, cat) => sum + cat.items.filter((i) => i.status === "warning").length,
     0
   );
@@ -485,7 +521,18 @@ function AnalyzeContent() {
                 <Share2 className="w-4 h-4" />
                 Share
               </Button>
-              <Button variant="outline" size="sm">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={async () => {
+                  await downloadAuditReportPdf({
+                    run,
+                    score,
+                    resolvedChecks,
+                    filename: `ecommerce-audit-${displayUrl}.pdf`,
+                  });
+                }}
+              >
                 <Download className="w-4 h-4" />
                 Export PDF
               </Button>
@@ -555,7 +602,7 @@ function AnalyzeContent() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto space-y-4">
-            {categories.map((category) => (
+            {scoredCategories.map((category) => (
               <CategoryCard
                 key={category.id}
                 category={category}
