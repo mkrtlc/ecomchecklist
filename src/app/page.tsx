@@ -65,28 +65,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 dark:bg-background/80 backdrop-blur-sm border-b">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Image 
-              src="/logo.png" 
-              alt="EcomChecklist Logo" 
-              width={36} 
-              height={36}
-              className="rounded-md"
-            />
-            <span className="font-bold text-lg">ecomchecklist.net</span>
-          </div>
-          <Button 
-            size="sm" 
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          >
-            Start Audit
-          </Button>
-        </div>
-      </header>
-
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-b from-green-50 to-white dark:from-green-950/20 dark:to-background">
         <div className="absolute inset-0 bg-grid-pattern opacity-5" />
