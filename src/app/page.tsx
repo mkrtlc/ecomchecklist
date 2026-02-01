@@ -66,67 +66,70 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-green-50 to-white dark:from-green-950/20 dark:to-background">
-        {/* Background Video */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-20 dark:opacity-10"
-        >
-          <source src="/hero-video.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-green-50/80 to-white/90 dark:from-green-950/80 dark:to-background/90" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-5" />
-        <div className="container relative mx-auto px-4 py-20 lg:py-32">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-4 py-2 rounded-full text-sm font-medium mb-6">
-              <CheckCircle className="w-4 h-4" />
-              Free E-commerce Store Audit
-            </div>
-            
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-              Is Your Store Ready to{" "}
-              <span className="text-green-600 dark:text-green-500">Convert?</span>
-            </h1>
-            
-            <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Get a comprehensive audit of your e-commerce store. Find hidden issues hurting your sales and get actionable fixes in minutes.
-            </p>
-
-            {/* URL Input Form */}
-            <form onSubmit={handleAnalyze} className="max-w-xl mx-auto">
-              <div className="flex flex-col sm:flex-row gap-3">
-                <div className="relative flex-1">
-                  <ShoppingCart className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                  <Input
-                    type="url"
-                    placeholder="Enter your store URL (e.g., mystore.com)"
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)}
-                    className="pl-10 h-12 text-base"
-                    required
-                  />
-                </div>
-                <Button type="submit" size="xl" disabled={isAnalyzing}>
-                  {isAnalyzing ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      Analyzing...
-                    </>
-                  ) : (
-                    <>
-                      Analyze Free
-                      <ArrowRight className="w-4 h-4" />
-                    </>
-                  )}
-                </Button>
+      <section className="relative bg-gradient-to-b from-green-50 to-white dark:from-green-950/10 dark:to-background py-12 md:py-32">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* Sol Sütun - Yazılar + CTA */}
+            <div>
+              <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                <CheckCircle className="w-4 h-4" />
+                Free E-commerce Store Audit
               </div>
-              <p className="text-sm text-muted-foreground mt-3">
-                No signup required. Get your report instantly.
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+                Is Your Store Ready to <span className="text-green-600 dark:text-green-500">Convert?</span>
+              </h1>
+              <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl">
+                Get a comprehensive audit of your e-commerce store. Find hidden issues hurting your sales and get actionable fixes in minutes.
               </p>
-            </form>
+              {/* URL Input Form */}
+              <form onSubmit={handleAnalyze} className="max-w-xl">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="relative flex-1">
+                    <ShoppingCart className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <Input
+                      type="url"
+                      placeholder="Enter your store URL (e.g., mystore.com)"
+                      value={url}
+                      onChange={(e) => setUrl(e.target.value)}
+                      className="pl-10 h-12 text-base"
+                      required
+                    />
+                  </div>
+                  <Button type="submit" size="xl" disabled={isAnalyzing}>
+                    {isAnalyzing ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Analyzing...
+                      </>
+                    ) : (
+                      <>
+                        Analyze Free
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
+                  </Button>
+                </div>
+                <p className="text-sm text-muted-foreground mt-3">
+                  No signup required. Get your report instantly.
+                </p>
+              </form>
+            </div>
+            {/* Sağ Sütun - Video */}
+            <div className="flex justify-center md:justify-end">
+              <div className="w-full max-w-lg rounded-3xl overflow-hidden shadow-lg border-2 border-green-100 dark:border-green-900/30 bg-white bg-opacity-60 dark:bg-card/70 ring-2 ring-green-200 dark:ring-green-900/40">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  poster="/hero-poster.jpg"
+                  className="w-full h-full object-cover"
+                  style={{ aspectRatio: "16/9" }}
+                >
+                  <source src="/hero-video.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </div>
           </div>
         </div>
       </section>
