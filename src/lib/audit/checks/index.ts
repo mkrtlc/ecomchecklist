@@ -19,3 +19,11 @@ export { clsScoreCheck } from "./cls-score";
 export { inpScoreCheck } from "./inp-score";
 export { imageOptimizationCheck } from "./image-optimization";
 export { cachingHeadersCheck } from "./caching-headers";
+
+// Batch 2: SEO
+export { metaTagsCheck } from "./meta-tags";
+export { structuredDataCheck } from "./structured-data";
+export { canonicalUrlsCheck } from "./canonical-urls";
+export { robotsTxtCheck } from "./robots-txt";
+export { sitemapXmlCheck } from "./sitemap-xml";
+export { ogTagsCheck } from "./og-tags";

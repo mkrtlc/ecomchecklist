@@ -20,6 +20,14 @@ import { inpScoreCheck } from "./inp-score";
 import { imageOptimizationCheck } from "./image-optimization";
 import { cachingHeadersCheck } from "./caching-headers";
 
+// Batch 2: SEO
+import { metaTagsCheck } from "./meta-tags";
+import { structuredDataCheck } from "./structured-data";
+import { canonicalUrlsCheck } from "./canonical-urls";
+import { robotsTxtCheck } from "./robots-txt";
+import { sitemapXmlCheck } from "./sitemap-xml";
+import { ogTagsCheck } from "./og-tags";
+
 /**
  * Central registry for all audit checks.
  *
@@ -43,6 +51,13 @@ export const CHECKS = [
   inpScoreCheck,
   imageOptimizationCheck,
   cachingHeadersCheck,
+  // Batch 2: SEO (6 new)
+  metaTagsCheck,
+  structuredDataCheck,
+  canonicalUrlsCheck,
+  robotsTxtCheck,
+  sitemapXmlCheck,
+  ogTagsCheck,
 ];
 
 export const CHECK_DEFINITIONS: AuditCheckDefinition[] = CHECKS.map((c) => c.definition);
