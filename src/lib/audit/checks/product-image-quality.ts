@@ -81,8 +81,7 @@ export const productImageQualityCheck: AuditCheck = {
       };
     }
 
-    const productUrl = ctx.productUrl ?? ctx.url;
-    const { html, finalUrl } = await adapters.html.fetchHtml(productUrl);
+    const { html, finalUrl } = await adapters.html.fetchHtml(ctx.url);
 
     const analysis = analyzeProductImages(html);
     
@@ -91,7 +90,7 @@ export const productImageQualityCheck: AuditCheck = {
         checkId: "product-image-quality",
         status: "warn",
         evidence: ["No images found on page"],
-        urlsTested: [finalUrl ?? productUrl],
+        urlsTested: [finalUrl ?? ctx.url],
       };
     }
 
@@ -122,7 +121,7 @@ export const productImageQualityCheck: AuditCheck = {
       checkId: "product-image-quality",
       status,
       evidence,
-      urlsTested: [finalUrl ?? productUrl],
+      urlsTested: [finalUrl ?? ctx.url],
     };
   },
 };

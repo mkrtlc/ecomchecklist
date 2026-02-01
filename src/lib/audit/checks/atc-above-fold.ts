@@ -67,9 +67,8 @@ export const atcAboveFoldCheck: AuditCheck = {
       };
     }
 
-    // Try to find a product page - this is heuristic
-    const productUrl = ctx.productUrl ?? ctx.url;
-    const { html, finalUrl } = await adapters.html.fetchHtml(productUrl);
+    // Use the provided URL (ideally a product page)
+    const { html, finalUrl } = await adapters.html.fetchHtml(ctx.url);
 
     const isAboveFold = detectsAtcAboveFold(html);
     
@@ -78,7 +77,7 @@ export const atcAboveFoldCheck: AuditCheck = {
         checkId: "atc-above-fold",
         status: "warn",
         evidence: ["Could not detect Add to Cart button"],
-        urlsTested: [finalUrl ?? productUrl],
+        urlsTested: [finalUrl ?? ctx.url],
       };
     }
 
@@ -86,7 +85,7 @@ export const atcAboveFoldCheck: AuditCheck = {
       checkId: "atc-above-fold",
       status: isAboveFold ? "pass" : "fail",
       evidence: [isAboveFold ? "Add to Cart appears early in page (likely above fold)" : "Add to Cart may be below fold"],
-      urlsTested: [finalUrl ?? productUrl],
+      urlsTested: [finalUrl ?? ctx.url],
     };
   },
 };
