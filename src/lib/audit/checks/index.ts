@@ -5,3 +5,4 @@ export * from "./ssl-validation";
 export * from "./checkout-steps-count";
 export * from "./guest-checkout";
 export * from "./atc-above-fold";
+export * from "./product-image-quality";
