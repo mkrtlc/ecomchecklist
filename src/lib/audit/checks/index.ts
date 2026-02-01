@@ -27,3 +27,12 @@ export { canonicalUrlsCheck } from "./canonical-urls";
 export { robotsTxtCheck } from "./robots-txt";
 export { sitemapXmlCheck } from "./sitemap-xml";
 export { ogTagsCheck } from "./og-tags";
+
+// Batch 3: Conversion
+export { trustBadgesCheck } from "./trust-badges";
+export { reviewsDisplayCheck } from "./reviews-display";
+export { urgencyElementsCheck } from "./urgency-elements";
+export { clearPricingCheck } from "./clear-pricing";
+export { shippingInfoCheck } from "./shipping-info";
+export { paymentMethodsCheck } from "./payment-methods";
+export { returnPolicyCheck } from "./return-policy";

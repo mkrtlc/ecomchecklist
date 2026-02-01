@@ -28,6 +28,15 @@ import { robotsTxtCheck } from "./robots-txt";
 import { sitemapXmlCheck } from "./sitemap-xml";
 import { ogTagsCheck } from "./og-tags";
 
+// Batch 3: Conversion
+import { trustBadgesCheck } from "./trust-badges";
+import { reviewsDisplayCheck } from "./reviews-display";
+import { urgencyElementsCheck } from "./urgency-elements";
+import { clearPricingCheck } from "./clear-pricing";
+import { shippingInfoCheck } from "./shipping-info";
+import { paymentMethodsCheck } from "./payment-methods";
+import { returnPolicyCheck } from "./return-policy";
+
 /**
  * Central registry for all audit checks.
  *
@@ -58,6 +67,14 @@ export const CHECKS = [
   robotsTxtCheck,
   sitemapXmlCheck,
   ogTagsCheck,
+  // Batch 3: Conversion (7 new)
+  trustBadgesCheck,
+  reviewsDisplayCheck,
+  urgencyElementsCheck,
+  clearPricingCheck,
+  shippingInfoCheck,
+  paymentMethodsCheck,
+  returnPolicyCheck,
 ];
 
 export const CHECK_DEFINITIONS: AuditCheckDefinition[] = CHECKS.map((c) => c.definition);
