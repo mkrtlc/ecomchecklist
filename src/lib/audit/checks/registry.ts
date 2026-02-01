@@ -6,13 +6,14 @@ import { mobilePageSpeedCheck } from "./mobile-page-speed";
 import { sslValidationCheck } from "./ssl-validation";
 import { checkoutStepsCountCheck } from "./checkout-steps-count";
 import { guestCheckoutCheck } from "./guest-checkout";
+import { atcAboveFoldCheck } from "./atc-above-fold";
 
 /**
  * Central registry for all audit checks.
  *
  * As we add the 50-item audit checklist, each check should register its definition here.
  */
-export const CHECKS = [mobilePageSpeedCheck, sslValidationCheck, checkoutStepsCountCheck, guestCheckoutCheck];
+export const CHECKS = [mobilePageSpeedCheck, sslValidationCheck, checkoutStepsCountCheck, guestCheckoutCheck, atcAboveFoldCheck];
 
 export const CHECK_DEFINITIONS: AuditCheckDefinition[] = CHECKS.map((c) => c.definition);
 
