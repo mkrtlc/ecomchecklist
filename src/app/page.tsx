@@ -88,7 +88,7 @@ export default function Home() {
                     <ShoppingCart className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                     <Input
                       type="url"
-                      placeholder="Enter your store URL (e.g., mystore.com)"
+                      placeholder="Enter your store URL (e.g., northwindoutfitters.com)"
                       value={url}
                       onChange={(e) => setUrl(e.target.value)}
                       className="pl-10 h-12 text-base"
@@ -117,16 +117,34 @@ export default function Home() {
             {/* Sağ Sütun - Video */}
             <div className="flex justify-center md:justify-end">
               <div className="w-full max-w-lg rounded-3xl overflow-hidden shadow-lg border-2 border-green-100 dark:border-green-900/30 bg-white bg-opacity-60 dark:bg-card/70 ring-2 ring-green-200 dark:ring-green-900/40">
+                {/* Mobile (1:1) */}
                 <video
                   autoPlay
                   muted
                   loop
                   playsInline
-                  poster="/hero-poster.jpg"
-                  className="w-full h-full object-cover"
+                  preload="metadata"
+                  poster="/hero-poster-1x1.svg"
+                  className="w-full h-full object-cover md:hidden"
+                  style={{ aspectRatio: "1/1" }}
+                >
+                  <source src="/hero-video-1x1.webm" type="video/webm" />
+                  <source src="/hero-video-1x1.mp4" type="video/mp4" />
+                </video>
+
+                {/* Desktop (16:9) */}
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  poster="/hero-poster-16x9.svg"
+                  className="hidden md:block w-full h-full object-cover"
                   style={{ aspectRatio: "16/9" }}
                 >
-                  <source src="/hero-video.mp4" type="video/mp4" />
+                  <source src="/hero-video-16x9.webm" type="video/webm" />
+                  <source src="/hero-video-16x9.mp4" type="video/mp4" />
                 </video>
               </div>
             </div>

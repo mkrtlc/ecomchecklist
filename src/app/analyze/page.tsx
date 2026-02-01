@@ -26,7 +26,15 @@ import Link from "next/link";
 import { useState } from "react";
 
 import type { AuditCategoryId, AuditCheckDefinition, AuditCheckResult, CheckStatus } from "@/lib/audit";
-import { computeAuditScore, createRegistry, resolveAuditRun, downloadAuditReportPdf } from "@/lib/audit";
+import {
+  compareToBenchmark,
+  computeAuditScore,
+  createRegistry,
+  downloadAuditReportPdf,
+  getIndustryBenchmark,
+  isCompetitorComparisonEnabled,
+  resolveAuditRun,
+} from "@/lib/audit";
 
 // Types
 interface CheckItem {
@@ -468,6 +476,9 @@ function AnalyzeContent() {
 
   const overallScore = score.overall.score0to100;
 
+  const benchmark = getIndustryBenchmark();
+  const benchmarkComparison = compareToBenchmark({ yourScore0to100: overallScore, benchmark });
+
   // Count totals
   const totalChecks = scoredCategories.reduce((sum, cat) => sum + cat.items.length, 0);
   const passedChecks = scoredCategories.reduce(
@@ -529,6 +540,7 @@ function AnalyzeContent() {
                     run,
                     score,
                     resolvedChecks,
+                    benchmark,
                     filename: `ecommerce-audit-${displayUrl}.pdf`,
                   });
                 }}
@@ -569,8 +581,11 @@ function AnalyzeContent() {
                   Your Store Score:{" "}
                   <span className={getScoreColor(overallScore)}>{getScoreLabel(overallScore)}</span>
                 </h1>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-muted-foreground mb-2">
                   We analyzed {totalChecks} checkpoints across 4 categories. Here's what we found.
+                </p>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Your score {overallScore} · {benchmark.industryLabel} average {benchmark.industryAvgScore0to100} ({benchmarkComparison.label})
                 </p>
                 <div className="flex items-center justify-center md:justify-start gap-2 text-sm text-muted-foreground">
                   <Clock className="w-4 h-4" />

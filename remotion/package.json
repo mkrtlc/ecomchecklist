@@ -4,19 +4,24 @@
   "description": "Hero video for ecomchecklist.net",
   "scripts": {
     "studio": "remotion studio",
-    "render": "remotion render HeroVideo ../public/hero-video.mp4 --codec=h264",
-    "render:webm": "remotion render HeroVideo ../public/hero-video.webm --codec=vp8"
+    "render:hero:16x9:mp4": "remotion render HeroLeak16x9 ../public/hero-video-16x9.mp4 --codec=h264 --crf=23 --muted --concurrency=2",
+    "render:hero:16x9:webm": "remotion render HeroLeak16x9 ../public/hero-video-16x9.webm --codec=vp9 --crf=32 --muted --concurrency=2",
+    "render:hero:1x1:mp4": "remotion render HeroLeak1x1 ../public/hero-video-1x1.mp4 --codec=h264 --crf=23 --muted --concurrency=2",
+    "render:hero:1x1:webm": "remotion render HeroLeak1x1 ../public/hero-video-1x1.webm --codec=vp9 --crf=32 --muted --concurrency=2",
+    "render:hero": "npm run render:hero:16x9:mp4 && npm run render:hero:16x9:webm && npm run render:hero:1x1:mp4 && npm run render:hero:1x1:webm"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@remotion/bundler": "^4.0.415",
-    "@remotion/cli": "^4.0.415",
-    "@types/react": "^19.2.10",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "remotion": "^4.0.415",
-    "typescript": "^5.9.3"
+    "@remotion/bundler": "4.0.414",
+    "@remotion/cli": "4.0.414",
+    "@remotion/google-fonts": "4.0.414",
+    "@remotion/renderer": "4.0.414",
+    "@types/react": "19.2.10",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "remotion": "4.0.414",
+    "typescript": "5.9.3"
   }
 }
