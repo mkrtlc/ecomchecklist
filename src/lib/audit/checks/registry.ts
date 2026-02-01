@@ -3,13 +3,14 @@ import type { AuditRegistry } from "../registry";
 import type { AuditCheckDefinition } from "../types";
 
 import { mobilePageSpeedCheck } from "./mobile-page-speed";
+import { sslValidationCheck } from "./ssl-validation";
 
 /**
  * Central registry for all audit checks.
  *
  * As we add the 50-item audit checklist, each check should register its definition here.
  */
-export const CHECKS = [mobilePageSpeedCheck];
+export const CHECKS = [mobilePageSpeedCheck, sslValidationCheck];
 
 export const CHECK_DEFINITIONS: AuditCheckDefinition[] = CHECKS.map((c) => c.definition);
 
