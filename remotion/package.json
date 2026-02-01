@@ -1,0 +1,22 @@
+{
+  "name": "ecomchecklist-remotion",
+  "version": "1.0.0",
+  "description": "Hero video for ecomchecklist.net",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render HeroVideo ../public/hero-video.mp4 --codec=h264",
+    "render:webm": "remotion render HeroVideo ../public/hero-video.webm --codec=vp8"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@remotion/bundler": "^4.0.415",
+    "@remotion/cli": "^4.0.415",
+    "@types/react": "^19.2.10",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "remotion": "^4.0.415",
+    "typescript": "^5.9.3"
+  }
+}
