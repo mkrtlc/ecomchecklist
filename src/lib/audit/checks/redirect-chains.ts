@@ -5,7 +5,7 @@ export const redirectChainsCheck: AuditCheck = {
     id: "redirect-chains",
     title: "Redirect Chains",
     category: "technical",
-    severity: "minor",
+    severity: "nice",
     whyImportant:
       "Redirect chains (A→B→C instead of A→C) slow down page loads and waste crawl budget. Each redirect adds latency and can dilute link equity for SEO.",
     howToFix:

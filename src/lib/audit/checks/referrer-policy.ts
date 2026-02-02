@@ -5,7 +5,7 @@ export const referrerPolicyCheck: AuditCheck = {
     id: "referrer-policy",
     title: "Referrer-Policy Header",
     category: "security",
-    severity: "minor",
+    severity: "nice",
     whyImportant:
       "Referrer-Policy controls what referrer information is sent with requests. For e-commerce, it helps prevent leaking sensitive URL parameters (order IDs, tokens) to third parties.",
     howToFix:

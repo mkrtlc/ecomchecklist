@@ -5,7 +5,7 @@ export const xFrameOptionsCheck: AuditCheck = {
     id: "x-frame-options",
     title: "Clickjacking Protection",
     category: "security",
-    severity: "major",
+    severity: "high",
     whyImportant:
       "X-Frame-Options and frame-ancestors CSP prevent clickjacking attacks where attackers embed your site in hidden iframes to steal clicks/credentials. Critical for checkout and login pages.",
     howToFix:

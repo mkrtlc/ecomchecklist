@@ -5,7 +5,7 @@ export const hstsHeaderCheck: AuditCheck = {
     id: "hsts-header",
     title: "HSTS Header",
     category: "security",
-    severity: "major",
+    severity: "high",
     whyImportant:
       "HTTP Strict Transport Security (HSTS) tells browsers to only connect via HTTPS, preventing protocol downgrade attacks and cookie hijacking. Critical for e-commerce sites handling payments.",
     howToFix:

@@ -5,7 +5,7 @@ export const contentTypeOptionsCheck: AuditCheck = {
     id: "content-type-options",
     title: "X-Content-Type-Options Header",
     category: "security",
-    severity: "minor",
+    severity: "nice",
     whyImportant:
       "The X-Content-Type-Options: nosniff header prevents MIME type sniffing attacks where browsers misinterpret file types. Helps prevent XSS attacks via incorrectly served scripts.",
     howToFix:

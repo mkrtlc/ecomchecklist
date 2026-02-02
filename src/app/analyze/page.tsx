@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   CheckCircle,
@@ -23,7 +23,9 @@ import {
   Lightbulb,
 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
+
+import { trackEvent, trackPageView } from "@/lib/analytics/gtm";
 
 import type { AuditCategoryId, AuditCheckDefinition, AuditCheckResult, CheckStatus } from "@/lib/audit";
 import {
@@ -32,7 +34,6 @@ import {
   createRegistry,
   downloadAuditReportPdf,
   getIndustryBenchmark,
-  isCompetitorComparisonEnabled,
   resolveAuditRun,
 } from "@/lib/audit";
 
@@ -433,6 +434,9 @@ function AnalyzeContent() {
   const url = searchParams.get("url") || "example-store.com";
   const [expandedCategories, setExpandedCategories] = useState<string[]>(["seo"]);
 
+  const auditStartTrackedRef = useRef(false);
+  const auditCompleteTrackedRef = useRef(false);
+
   // Generate mock data
   const categories = generateMockData(url);
 
@@ -479,6 +483,27 @@ function AnalyzeContent() {
   const benchmark = getIndustryBenchmark();
   const benchmarkComparison = compareToBenchmark({ yourScore0to100: overallScore, benchmark });
 
+  useEffect(() => {
+    trackPageView({ page_path: "/analyze" });
+
+    if (!auditStartTrackedRef.current) {
+      auditStartTrackedRef.current = true;
+      trackEvent("audit_start", {
+        url_provided: Boolean(url),
+      });
+    }
+  }, [url]);
+
+  useEffect(() => {
+    if (auditCompleteTrackedRef.current) return;
+    auditCompleteTrackedRef.current = true;
+
+    trackEvent("audit_complete", {
+      score: overallScore,
+      url_provided: Boolean(url),
+    });
+  }, [overallScore, url]);
+
   // Count totals
   const totalChecks = scoredCategories.reduce((sum, cat) => sum + cat.items.length, 0);
   const passedChecks = scoredCategories.reduce(
@@ -495,9 +520,16 @@ function AnalyzeContent() {
   );
 
   const toggleCategory = (id: string) => {
-    setExpandedCategories((prev) =>
-      prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id]
-    );
+    setExpandedCategories((prev) => {
+      const isExpanded = prev.includes(id);
+      if (!isExpanded) {
+        trackEvent("check_expand", {
+          location: "category_card",
+          check_id: id,
+        });
+      }
+      return isExpanded ? prev.filter((c) => c !== id) : [...prev, id];
+    });
   };
 
   const getScoreLabel = (score: number) => {
@@ -536,6 +568,11 @@ function AnalyzeContent() {
                 variant="outline"
                 size="sm"
                 onClick={async () => {
+                  trackEvent("pdf_download", {
+                    location: "analyze_header",
+                    filename: `ecommerce-audit-${displayUrl}.pdf`,
+                  });
+
                   await downloadAuditReportPdf({
                     run,
                     score,
@@ -582,7 +619,7 @@ function AnalyzeContent() {
                   <span className={getScoreColor(overallScore)}>{getScoreLabel(overallScore)}</span>
                 </h1>
                 <p className="text-muted-foreground mb-2">
-                  We analyzed {totalChecks} checkpoints across 4 categories. Here's what we found.
+                  We analyzed {totalChecks} checkpoints across 4 categories. Here&apos;s what we found.
                 </p>
                 <p className="text-sm text-muted-foreground mb-4">
                   Your score {overallScore} · {benchmark.industryLabel} average {benchmark.industryAvgScore0to100} ({benchmarkComparison.label})
@@ -636,7 +673,7 @@ function AnalyzeContent() {
             Want to Fix These Issues?
           </h2>
           <p className="text-green-100 mb-6 max-w-xl mx-auto">
-            Get a detailed action plan with step-by-step instructions to improve your store's performance.
+            Get a detailed action plan with step-by-step instructions to improve your store&apos;s performance.
           </p>
           <div className="flex items-center justify-center gap-4">
             <Button size="lg" variant="secondary">
