@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
+import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import {
   CheckCircle,
@@ -692,19 +693,7 @@ function AnalyzeContent() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 border-t bg-white dark:bg-card">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <Link href="/" className="font-semibold hover:text-green-600 transition-colors">
-              ecomchecklist.net
-            </Link>
-            <div className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} All rights reserved.
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
   );
 }

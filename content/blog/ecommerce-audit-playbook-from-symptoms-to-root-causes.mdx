@@ -1,0 +1,504 @@
+---
+title: "The E-commerce Audit Playbook: From Symptoms to Root Causes"
+excerpt: "A step-by-step audit process you can run in 90 minutes: identify funnel leaks, diagnose root causes (not guesses), prioritize fixes, and build a 30-day conversion plan."
+date: "2026-01-28"
+tags: ["audit", "cro", "ux", "analytics", "operations"]
+metaTitle: "E-commerce Audit Playbook (90-Minute Process + Checklists)"
+metaDescription: "A practical e-commerce audit framework: data checks, funnel analysis, UX review, PDP/PLP/checkout audits, performance, trust, and prioritization—plus a 30-day action plan template."
+---
+
+## Why most “audits” fail
+
+A lot of audits are really just:
+
+- A long list of best practices
+- A slideshow of opinions
+- A UI critique with no revenue model
+
+The problem: best practices don’t tell you **what to do next**. In e-commerce, the best fix is the one that addresses your *specific* leak in the funnel, for your *specific* traffic mix, product type, price point, and customer objections.
+
+This playbook is designed to be run quickly, repeated quarterly, and turned into an execution plan.
+
+---
+
+## The audit mindset: diagnose before you prescribe
+
+Your job in an audit is to answer three questions:
+
+1. **Where is the biggest leak?** (Which funnel step is underperforming?)
+2. **Why is it leaking?** (What’s the root cause?)
+3. **What’s the simplest fix with the highest expected impact?**
+
+A useful heuristic: *If you can’t articulate the customer’s objection in plain language, you don’t have a diagnosis yet.*
+
+---
+
+## The 90-minute audit (high leverage)
+
+### 0) Prep (5 minutes)
+
+Gather:
+
+- Analytics access (GA4 or equivalent)
+- Store platform access (Shopify/Checkout settings)
+- Heatmaps/session recordings (if available)
+- Speed reports (PageSpeed Insights / CrUX)
+- Ad landing pages (top 5 by spend)
+
+Create a simple notes doc with these headings:
+
+- Data integrity
+- Funnel performance
+- Landing page alignment
+- PLP (collection) experience
+- PDP experience
+- Cart + checkout
+- Performance
+- Trust + policies
+- Retention basics
+- Prioritized actions
+
+---
+
+## 1) Data integrity check (10 minutes)
+
+Before you analyze behavior, confirm your tracking is not lying.
+
+### What to verify
+
+**Events and revenue sanity**
+
+- Does “purchase” fire once per order?
+- Is revenue close to backend revenue (allowing for attribution/cookie loss)?
+- Are taxes/shipping included or excluded consistently?
+
+**Funnel event coverage**
+
+You should reliably track:
+
+- view_item
+- add_to_cart
+- begin_checkout
+- add_payment_info
+- purchase
+
+**UTM standards**
+
+- Are UTMs present on paid traffic?
+- Are “source / medium” buckets clean?
+
+### Common failure modes
+
+- Duplicated purchase events inflate conversion
+- Missing checkout events hides leaks
+- Payment step tracked as checkout start (false funnel)
+- Consent/cookie banner breaks analytics
+
+If data is broken, fix this first. Everything else will be noise.
+
+---
+
+## 2) Funnel audit (15 minutes)
+
+### The minimum funnel views to check
+
+Look at conversion rates for:
+
+- Session → Product view
+- Product view → Add to cart
+- Add to cart → Begin checkout
+- Begin checkout → Purchase
+
+Then segment by:
+
+- Mobile vs desktop
+- New vs returning
+- Top 3 channels
+- Top 3 landing pages
+- Top countries (if international)
+
+### What the funnel tells you
+
+- **Low product view rate**: traffic mismatch or weak landing pages
+- **Low add-to-cart**: PDP clarity, trust, price/value mismatch, poor variants
+- **Low checkout start**: cart friction, surprise costs, weak CTAs
+- **Low purchase**: checkout friction, payments, delivery mismatch, lack of trust
+
+The goal: pick **one primary leak** and **one secondary leak**.
+
+---
+
+## 3) Landing page alignment (10 minutes)
+
+Paid traffic usually lands on a promise: an ad angle, a creator story, a benefit.
+
+### The alignment checklist
+
+For your top landing pages, ask:
+
+- Does the headline repeat the ad promise?
+- Is the product shown immediately?
+- Is pricing clear fast?
+- Is the primary CTA obvious?
+- Is there proof *above the fold*?
+
+### Fast wins
+
+- Add a “you are in the right place” hero
+- Repeat the key claim with 2–3 bullets
+- Show delivery time + returns near CTA
+- Add one strong proof block (reviews, UGC, results)
+
+---
+
+## 4) Collection (PLP) audit (10 minutes)
+
+PLPs are often ignored, yet they’re the decision hub for shoppers.
+
+### What great PLPs do
+
+- Let users filter by real buying criteria
+- Make differences between products obvious
+- Provide fast scanning (price, rating, key attributes)
+
+### PLP audit checklist
+
+- [ ] Sorting options include Best sellers, New, Price
+- [ ] Filters match category (size, material, use case)
+- [ ] Product cards show key differentiators
+- [ ] Quick-add is available where appropriate
+- [ ] Pagination/infinite scroll doesn’t break performance
+
+---
+
+## 5) Product page (PDP) audit (20 minutes)
+
+Your PDP must do three things:
+
+1. Explain value quickly
+2. Build confidence
+3. Remove friction
+
+### The “10-second clarity” test
+
+In 10 seconds, can a new visitor answer:
+
+- What is it?
+- Why should I care?
+- What’s included?
+- What does it cost?
+- How fast can I get it?
+
+### The “objection mapping” method
+
+Write down the top objections for your category. Examples:
+
+- “Will this fit me?”
+- “Will this actually work?”
+- “Is this legit?”
+- “Can I return it?”
+- “Why is it this price?”
+- “How does it compare?”
+
+Then ensure the PDP answers each objection explicitly.
+
+### PDP checklist (high impact)
+
+**Above the fold**
+
+- [ ] Clear headline (benefit-focused)
+- [ ] Price + any subscription/upsell clarity
+- [ ] Variant selection is obvious
+- [ ] Shipping ETA + returns summary
+- [ ] Reviews summary (count + rating)
+
+**Mid-page**
+
+- [ ] How it works (visual steps)
+- [ ] Benefits + features (separate)
+- [ ] Social proof with context
+- [ ] Comparison vs alternatives
+
+**Bottom**
+
+- [ ] FAQ based on real support questions
+- [ ] Policies in plain language
+- [ ] Trust badges only if meaningful
+
+---
+
+## 6) Cart and checkout audit (15 minutes)
+
+Checkout is the highest intent environment on your site. Small frictions matter.
+
+### Cart audit checklist
+
+- [ ] Shipping costs and ETA visible early
+- [ ] Upsells don’t distract from checkout
+- [ ] Coupon field not overly prominent
+- [ ] Express checkout available
+
+### Checkout audit checklist
+
+- [ ] Guest checkout allowed
+- [ ] Apple Pay / Google Pay / PayPal enabled
+- [ ] Address autocomplete enabled
+- [ ] Errors are clear and field-specific
+- [ ] Payment failures are handled gracefully
+
+### Red flags
+
+- Surprise shipping costs at the last step
+- Too many form fields on mobile
+- Payment methods missing for key regions
+- Long “loading” states with no feedback
+
+---
+
+## 7) Performance audit (10 minutes)
+
+Performance issues are silent conversion killers.
+
+What to check:
+
+- Mobile PageSpeed for top landing pages and PDPs
+- Largest image sizes (hero, gallery)
+- Third-party script weight (apps, chat widgets, A/B tools)
+- Layout shift from banners/review widgets
+
+Quick wins:
+
+- Compress images and fix dimensions
+- Remove or delay non-critical scripts
+- Reduce app bloat
+
+---
+
+## 8) Trust + policy audit (5 minutes)
+
+Trust is rarely one big thing. It’s the sum of details.
+
+Checklist:
+
+- [ ] Clear contact methods (not hidden)
+- [ ] Returns policy written in plain language
+- [ ] Shipping times realistic and consistent
+- [ ] Security/reliability signals at checkout
+- [ ] Review authenticity (no obvious spam)
+
+---
+
+## 9) Turn findings into a 30-day plan (the part most teams skip)
+
+An audit that doesn’t produce a plan is just entertainment.
+
+### Prioritization framework: ICE with a constraint
+
+For each idea, score:
+
+- **Impact** (1–10): expected conversion or revenue lift
+- **Confidence** (1–10): evidence quality
+- **Effort** (1–10): design/dev/ops effort
+
+Compute: (Impact × Confidence) / Effort.
+
+Then apply a constraint:
+
+- Choose **one “primary leak” project**
+- Choose **two “quick wins”**
+- Choose **one measurement/QA improvement**
+
+This prevents “death by 37 small changes.”
+
+### Example 30-day plan
+
+**Week 1: diagnose + ship quick wins**
+
+- Fix shipping ETA clarity on PDP and cart
+- Add above-the-fold proof block
+- Clean up variant selection UI
+
+**Week 2: checkout friction**
+
+- Enable express pay
+- Improve error messaging
+- Add address autocomplete
+
+**Week 3: performance cleanup**
+
+- Compress hero and gallery images
+- Remove 1–2 heavy scripts
+
+**Week 4: run one structured experiment**
+
+- Test a new PDP above-the-fold module
+- Measure impact on add-to-cart and purchase
+
+---
+
+## Templates you can reuse
+
+### Audit deliverable template
+
+For each section, include:
+
+- Observation (what you saw)
+- Evidence (data, screenshots, recordings)
+- Diagnosis (why it’s happening)
+- Recommendation (what to change)
+- Expected impact (qualitative)
+- Owner and effort estimate
+
+### The “root cause” prompt
+
+When you’re unsure, ask:
+
+- What does the user want to do here?
+- What is stopping them?
+- What are they afraid of?
+- What is unclear?
+- What feels risky?
+
+---
+
+## Add-on: a simple audit scorecard (so you can compare quarter to quarter)
+
+If you want your audits to compound, turn them into a scorecard.
+
+Score each area 1–5:
+
+- Measurement integrity
+- Landing page alignment
+- PLP discoverability
+- PDP clarity
+- PDP trust
+- Cart clarity
+- Checkout friction
+- Mobile performance
+- Post-purchase basics
+
+Then track the score quarterly. You’ll quickly see whether you’re actually improving or just shipping random changes.
+
+---
+
+## Add-on: symptom → likely root cause patterns
+
+When you run enough audits, patterns repeat.
+
+### Symptom: high traffic, low add-to-cart
+
+Likely causes:
+
+- product value unclear above the fold
+- price/value mismatch for traffic source
+- weak proof near CTA
+- variant selection confusion
+- shipping/returns uncertainty
+
+### Symptom: strong add-to-cart, weak purchase
+
+Likely causes:
+
+- surprise shipping costs or long delivery times
+- missing payment methods
+- checkout errors on mobile
+- discount field increases “coupon hunting”
+
+### Symptom: desktop converts, mobile doesn’t
+
+Likely causes:
+
+- performance (LCP/INP)
+- sticky elements covering CTAs
+- form friction in checkout
+- too much content before the CTA
+
+Use these patterns to speed up diagnosis—but still confirm with evidence.
+
+---
+
+## Deep dive: diagnosing the root cause (not the symptom)
+
+Once you’ve identified the primary leak (for example: **begin checkout → purchase** is weak on mobile), don’t jump straight to “add more trust badges.” Use a structured diagnosis.
+
+### Root-cause categories (use these like a checklist)
+
+Most issues fall into a small set of buckets:
+
+1. **Clarity problems** (people don’t understand the product/offer)
+2. **Risk problems** (trust, returns, warranties, legitimacy)
+3. **Friction problems** (UX, forms, speed, errors)
+4. **Cost surprises** (shipping, taxes, duties, subscriptions)
+5. **Fit problems** (size, compatibility, ingredients/material concerns)
+6. **Payment or delivery mismatch** (missing local methods, slow/uncertain shipping)
+7. **Audience mismatch** (traffic is the wrong intent, wrong promise, wrong segment)
+
+Your goal is to label the leak with *one* primary root cause before proposing solutions.
+
+### Example: checkout drop-off
+
+**Symptom:** Mobile checkout completion is down, especially for paid social.
+
+**Evidence to collect:**
+
+- Payment failure rate by method (Shop Pay vs card vs PayPal)
+- Form error rates (postcode, phone, address line)
+- Session recordings focused on checkout
+- Time-to-complete checkout (median)
+
+**Likely root causes:**
+
+- Address autocomplete missing on mobile
+- Payment method mismatch for the country
+- Discount hunting caused by an overly prominent coupon field
+- Shipping shown too late (surprise cost)
+
+**Actionable fix types:**
+
+- Reduce required fields, improve inline validation
+- Add the 2–3 most demanded payment methods for your top countries
+- Show shipping cost + ETA earlier (even a range)
+
+---
+
+## How to package evidence so stakeholders say “yes”
+
+Audits die when they’re delivered as opinions. For every recommendation, attach an **evidence pack**:
+
+- **1 screenshot** of the issue (or competitor reference)
+- **1 metric** that shows it matters (funnel rate, drop-off %, error rate)
+- **1 recording note** (what real users are doing)
+- **1 proposed change** with expected impact and effort
+
+If you do this consistently, your audit becomes a decision-making tool, not a design critique.
+
+### A simple severity rubric
+
+To avoid endless debates, rate each finding:
+
+- **Severity A:** clearly blocking purchase (broken buttons, payment failures, missing shipping rates)
+- **Severity B:** major friction or clarity gap (variant confusion, unclear returns, slow LCP)
+- **Severity C:** polish or long-term improvement (small UI consistency, minor content gaps)
+
+Ship A’s immediately, schedule B’s, backlog C’s.
+
+---
+
+## The “one-page audit summary” (what leadership actually reads)
+
+Create a short summary page with:
+
+1. **Primary leak + diagnosis** (one sentence)
+2. **Top 3 fixes** (what, why, expected impact, effort)
+3. **Risks / dependencies** (apps, theme changes, dev constraints)
+4. **30-day plan** (weekly milestones)
+
+Then link the deep audit doc below it for the team.
+
+---
+
+## Final note
+
+The best audit is the one you can repeat.
+
+Run this quarterly, keep a running backlog, and track which changes actually move the funnel. Over time you’ll build a compounding advantage: you’ll stop guessing, and you’ll start operating your store like a system.

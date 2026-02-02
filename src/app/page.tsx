@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -186,108 +187,112 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 md:mb-6 leading-tight">
-              Your Store is <span className="text-rose-400 line-through decoration-2">Leaking Money</span>
-              <br />
-              <span className="bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">Find Out Where</span>
-            </h1>
+          <div className="mx-auto max-w-5xl grid gap-10 md:gap-12">
+            {/* Row 1: Copy + form */}
+            <div className="text-center max-w-4xl mx-auto">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 md:mb-6 leading-tight">
+                Your Store is <span className="text-rose-400 line-through decoration-2">Leaking Money</span>
+                <br />
+                <span className="bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">Find Out Where</span>
+              </h1>
 
-            <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-              Get a <strong className="text-white">free 50-point audit</strong> of your e-commerce store. Uncover hidden issues killing
-              your conversions — fix them and watch sales grow.
-            </p>
+              <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
+                Get a <strong className="text-white">free 50-point audit</strong> of your e-commerce store. Uncover hidden issues killing
+                your conversions — fix them and watch sales grow.
+              </p>
 
-            <form onSubmit={handleAnalyze} className="max-w-2xl mx-auto mb-6">
-              <div className="bg-slate-800/50 backdrop-blur-xl p-3 md:p-4 rounded-2xl shadow-2xl border border-slate-700/50">
-                <div className="flex flex-col gap-3">
-                  <div className="relative">
-                    <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
-                    <Input
-                      type="url"
-                      placeholder="yourstore.com"
-                      value={url}
-                      onFocus={() => {
-                        trackEvent("url_input_focus", { location: "hero" });
-                        if (!hasStartedFormRef.current) {
-                          hasStartedFormRef.current = true;
-                          trackEvent("form_start", { form_id: "audit_form", location: "hero" });
-                        }
-                      }}
-                      onChange={(e) => {
-                        const next = e.target.value;
-                        setUrl(next);
+              <form onSubmit={handleAnalyze} className="max-w-2xl mx-auto">
+                <div className="bg-slate-800/50 backdrop-blur-xl p-3 md:p-4 rounded-2xl shadow-2xl border border-slate-700/50">
+                  <div className="flex flex-col gap-3">
+                    <div className="relative">
+                      <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                      <Input
+                        type="url"
+                        placeholder="yourstore.com"
+                        value={url}
+                        onFocus={() => {
+                          trackEvent("url_input_focus", { location: "hero" });
+                          if (!hasStartedFormRef.current) {
+                            hasStartedFormRef.current = true;
+                            trackEvent("form_start", { form_id: "audit_form", location: "hero" });
+                          }
+                        }}
+                        onChange={(e) => {
+                          const next = e.target.value;
+                          setUrl(next);
 
-                        if (!hasStartedFormRef.current) {
-                          hasStartedFormRef.current = true;
-                          trackEvent("form_start", { form_id: "audit_form", location: "hero" });
-                        }
+                          if (!hasStartedFormRef.current) {
+                            hasStartedFormRef.current = true;
+                            trackEvent("form_start", { form_id: "audit_form", location: "hero" });
+                          }
 
-                        const now = Date.now();
-                        if (now - lastUrlChangeTrackedAtRef.current > 1500) {
-                          lastUrlChangeTrackedAtRef.current = now;
-                          trackEvent("url_input_change", {
-                            location: "hero",
-                            value_length: next.length,
-                          });
-                        }
-                      }}
-                      className="pl-12 h-14 text-base md:text-lg bg-slate-900/80 border-slate-700 focus:border-amber-500 rounded-xl text-white placeholder:text-slate-500"
-                      required
-                    />
+                          const now = Date.now();
+                          if (now - lastUrlChangeTrackedAtRef.current > 1500) {
+                            lastUrlChangeTrackedAtRef.current = now;
+                            trackEvent("url_input_change", {
+                              location: "hero",
+                              value_length: next.length,
+                            });
+                          }
+                        }}
+                        className="pl-12 h-14 text-base md:text-lg bg-slate-900/80 border-slate-700 focus:border-amber-500 rounded-xl text-white placeholder:text-slate-500"
+                        required
+                      />
+                    </div>
+
+                    <div className="relative">
+                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                      <Input
+                        type="email"
+                        placeholder="your@email.com (to receive your report)"
+                        value={email}
+                        onFocus={() => {
+                          trackEvent("email_input_focus", { location: "hero" });
+                          if (!hasStartedFormRef.current) {
+                            hasStartedFormRef.current = true;
+                            trackEvent("form_start", { form_id: "audit_form", location: "hero" });
+                          }
+                        }}
+                        onChange={(e) => {
+                          const next = e.target.value;
+                          setEmail(next);
+
+                          if (!hasStartedFormRef.current) {
+                            hasStartedFormRef.current = true;
+                            trackEvent("form_start", { form_id: "audit_form", location: "hero" });
+                          }
+                        }}
+                        className="pl-12 h-14 text-base md:text-lg bg-slate-900/80 border-slate-700 focus:border-amber-500 rounded-xl text-white placeholder:text-slate-500"
+                        required
+                      />
+                    </div>
+
+                    <Button
+                      type="submit"
+                      size="xl"
+                      disabled={isAnalyzing}
+                      className="h-14 text-lg font-bold bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-900 rounded-xl w-full shadow-lg shadow-amber-500/25 transition-all hover:shadow-amber-500/40"
+                    >
+                      {isAnalyzing ? (
+                        <>
+                          <Loader2 className="w-5 h-5 animate-spin" />
+                          Analyzing Your Store...
+                        </>
+                      ) : (
+                        <>
+                          Get My Free Audit
+                          <ArrowRight className="w-5 h-5" />
+                        </>
+                      )}
+                    </Button>
                   </div>
-
-                  <div className="relative">
-                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
-                    <Input
-                      type="email"
-                      placeholder="your@email.com (to receive your report)"
-                      value={email}
-                      onFocus={() => {
-                        trackEvent("email_input_focus", { location: "hero" });
-                        if (!hasStartedFormRef.current) {
-                          hasStartedFormRef.current = true;
-                          trackEvent("form_start", { form_id: "audit_form", location: "hero" });
-                        }
-                      }}
-                      onChange={(e) => {
-                        const next = e.target.value;
-                        setEmail(next);
-
-                        if (!hasStartedFormRef.current) {
-                          hasStartedFormRef.current = true;
-                          trackEvent("form_start", { form_id: "audit_form", location: "hero" });
-                        }
-                      }}
-                      className="pl-12 h-14 text-base md:text-lg bg-slate-900/80 border-slate-700 focus:border-amber-500 rounded-xl text-white placeholder:text-slate-500"
-                      required
-                    />
-                  </div>
-
-                  <Button
-                    type="submit"
-                    size="xl"
-                    disabled={isAnalyzing}
-                    className="h-14 text-lg font-bold bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-900 rounded-xl w-full shadow-lg shadow-amber-500/25 transition-all hover:shadow-amber-500/40"
-                  >
-                    {isAnalyzing ? (
-                      <>
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                        Analyzing Your Store...
-                      </>
-                    ) : (
-                      <>
-                        Get My Free Audit
-                        <ArrowRight className="w-5 h-5" />
-                      </>
-                    )}
-                  </Button>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
 
-            <div className="flex justify-center mt-10 md:mt-12">
-              <div className="relative w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl border border-slate-700/50 bg-slate-900/50 ring-1 ring-white/10">
+            {/* Row 2: Video */}
+            <div className="mx-auto w-full max-w-2xl">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-700/50 bg-slate-900/50 ring-1 ring-white/10">
                 <video
                   autoPlay
                   muted
@@ -314,25 +319,25 @@ export default function Home() {
                   Open video
                 </a>
               </div>
-            </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm text-slate-500 mt-6">
-              <span className="flex items-center gap-1">
-                <Lock className="w-4 h-4" />
-                256-bit SSL
-              </span>
-              <span className="flex items-center gap-1">
-                <CreditCard className="w-4 h-4 line-through" />
-                No credit card
-              </span>
-              <span className="flex items-center gap-1">
-                <Clock className="w-4 h-4" />
-                Results in 60 seconds
-              </span>
-              <span className="flex items-center gap-1">
-                <CheckCircle className="w-4 h-4 text-emerald-400" />
-                Free forever
-              </span>
+              <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm text-slate-500 mt-6">
+                <span className="flex items-center gap-1">
+                  <Lock className="w-4 h-4" />
+                  256-bit SSL
+                </span>
+                <span className="flex items-center gap-1">
+                  <CreditCard className="w-4 h-4 line-through" />
+                  No credit card
+                </span>
+                <span className="flex items-center gap-1">
+                  <Clock className="w-4 h-4" />
+                  Results in 60 seconds
+                </span>
+                <span className="flex items-center gap-1">
+                  <CheckCircle className="w-4 h-4 text-emerald-400" />
+                  Free forever
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -580,28 +585,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="py-8 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0a0f1a]">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <Image src="/logo.png" alt="EcomChecklist Logo" width={28} height={28} className="rounded-md" />
-              <span className="font-semibold text-slate-900 dark:text-white">ecomchecklist.net</span>
-            </div>
-            <div className="flex items-center gap-6 text-sm text-slate-600 dark:text-slate-400">
-              <a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">
-                Privacy
-              </a>
-              <a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">
-                Terms
-              </a>
-              <a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">
-                Contact
-              </a>
-            </div>
-            <div className="text-sm text-slate-500">© {new Date().getFullYear()} ecomchecklist.net — All rights reserved.</div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
   );
 }

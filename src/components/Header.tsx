@@ -1,14 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { Menu, CheckCircle, ArrowRight } from "lucide-react";
+import { Menu, ArrowRight } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/gtm";
 
 const navItems = [
   { href: "/", label: "Home" },
+  { href: "/blog", label: "Blog" },
   { href: "#features", label: "Features" },
   { href: "#pricing", label: "Pricing" },
   { href: "#about", label: "About" },
@@ -48,11 +50,16 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-green-600">
-              <CheckCircle className="w-5 h-5 text-white" />
-            </div>
-            <span className="font-bold text-lg">
+          <Link href="/" className="flex items-center gap-2" aria-label="Go to homepage">
+            <Image
+              src="/logo.png"
+              alt="EcomChecklist"
+              width={32}
+              height={32}
+              priority
+              className="rounded-md"
+            />
+            <span className="font-bold text-lg leading-none">
               ecom<span className="text-green-600">checklist</span>
             </span>
           </Link>
