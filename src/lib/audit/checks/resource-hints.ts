@@ -5,7 +5,7 @@ export const resourceHintsCheck: AuditCheck = {
     id: "resource-hints",
     title: "Resource Hints (preconnect/preload)",
     category: "performance",
-    severity: "minor",
+    severity: "nice",
     whyImportant:
       "Resource hints (preconnect, preload, prefetch) tell browsers to prepare resources early. Preloading critical assets like fonts and hero images significantly improves LCP.",
     howToFix:

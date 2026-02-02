@@ -5,7 +5,7 @@ export const gzipCompressionCheck: AuditCheck = {
     id: "gzip-compression",
     title: "GZIP/Brotli Compression",
     category: "performance",
-    severity: "major",
+    severity: "high",
     whyImportant:
       "Text compression (GZIP/Brotli) can reduce transfer sizes by 70-90%, dramatically improving load times. Uncompressed assets waste bandwidth and slow page loads.",
     howToFix:

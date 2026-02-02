@@ -5,7 +5,7 @@ export const criticalCssCheck: AuditCheck = {
     id: "critical-css",
     title: "Critical CSS Inlining",
     category: "performance",
-    severity: "minor",
+    severity: "nice",
     whyImportant:
       "Inlining critical CSS eliminates render-blocking requests for above-fold content. This dramatically improves First Contentful Paint (FCP) and Largest Contentful Paint (LCP).",
     howToFix:

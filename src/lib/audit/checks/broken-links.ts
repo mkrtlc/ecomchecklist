@@ -5,7 +5,7 @@ export const brokenLinksCheck: AuditCheck = {
     id: "broken-links",
     title: "Broken Links",
     category: "technical",
-    severity: "major",
+    severity: "high",
     whyImportant:
       "Broken links frustrate users and harm SEO. Search engines penalize sites with many 404 errors, and broken product links directly cause lost sales.",
     howToFix:

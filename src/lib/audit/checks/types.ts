@@ -17,12 +17,43 @@ export interface CheckAdapterBundle {
       valid: boolean;
       expiresAt?: string; // ISO
       issuer?: string;
+      daysUntilExpiry?: number;
       raw?: unknown;
     }>;
   };
 
   html?: {
-    fetchHtml: (url: string) => Promise<{ html: string; finalUrl?: string; raw?: unknown }>;
+    fetchHtml: (url: string) => Promise<{
+      html: string;
+      finalUrl?: string;
+      headers?: Record<string, string>;
+      statusCode?: number;
+      raw?: unknown;
+    }>;
+  };
+
+  headers?: {
+    /** Fetch HTTP response headers for a URL */
+    getHeaders: (url: string) => Promise<{
+      all: Record<string, string>;
+      security: {
+        strictTransportSecurity?: string;
+        contentSecurityPolicy?: string;
+        xFrameOptions?: string;
+        xContentTypeOptions?: string;
+        referrerPolicy?: string;
+        permissionsPolicy?: string;
+      };
+      caching: {
+        cacheControl?: string;
+        expires?: string;
+        etag?: string;
+      };
+      compression: {
+        contentEncoding?: string;
+      };
+      raw?: unknown;
+    }>;
   };
 
   viewport?: {
@@ -38,6 +69,15 @@ export interface CheckAdapterBundle {
     ) => Promise<{
       images: Array<{ src: string; width?: number; height?: number; format?: string; bytes?: number }>;
       raw?: unknown;
+    }>;
+  };
+
+  platform?: {
+    /** Detect e-commerce platform from HTML */
+    detectPlatform: (html: string, url?: string) => Promise<{
+      platform: string;
+      confidence: 'high' | 'medium' | 'low';
+      evidence: string[];
     }>;
   };
 }

@@ -5,7 +5,7 @@ export const lazyLoadingCheck: AuditCheck = {
     id: "lazy-loading",
     title: "Image Lazy Loading",
     category: "performance",
-    severity: "minor",
+    severity: "nice",
     whyImportant:
       "Lazy loading defers off-screen images until needed, reducing initial page weight and improving LCP. For product listing pages with many images, this can save megabytes of initial bandwidth.",
     howToFix:

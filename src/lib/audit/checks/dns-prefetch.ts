@@ -5,7 +5,7 @@ export const dnsPrefetchCheck: AuditCheck = {
     id: "dns-prefetch",
     title: "DNS Prefetch",
     category: "performance",
-    severity: "minor",
+    severity: "nice",
     whyImportant:
       "DNS prefetch hints allow browsers to resolve domain names before resources are requested, reducing latency by 20-120ms per external domain. Critical for sites using third-party services.",
     howToFix:

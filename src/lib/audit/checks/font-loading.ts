@@ -5,7 +5,7 @@ export const fontLoadingCheck: AuditCheck = {
     id: "font-loading",
     title: "Web Font Optimization",
     category: "performance",
-    severity: "minor",
+    severity: "nice",
     whyImportant:
       "Unoptimized web fonts cause FOIT (Flash of Invisible Text) or FOUT (Flash of Unstyled Text), hurting both UX and CLS scores. Proper font-display settings ensure text remains visible during font loading.",
     howToFix:

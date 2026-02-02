@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { 
-  CheckCircle, 
-  ArrowRight, 
-  ShoppingCart, 
-  Search, 
-  Zap, 
+import {
+  CheckCircle,
+  ArrowRight,
+  ShoppingCart,
+  Search,
+  Zap,
   Shield,
   TrendingUp,
   AlertTriangle,
@@ -24,8 +24,10 @@ import {
   ChevronRight,
   Smartphone,
   Globe,
-  Package
+  Package,
+  BadgeCheck
 } from "lucide-react";
+import { InlineCTA } from "@/components/InlineCTA";
 
 export default function Home() {
   const [url, setUrl] = useState("");
@@ -64,21 +66,26 @@ export default function Home() {
       quote: "Found 3 critical issues that were killing my conversion rate. Fixed them and saw 23% increase in sales within a week.",
       author: "Sarah M.",
       role: "Shopify Store Owner",
+      verified: true,
       rating: 5
     },
     {
       quote: "The most comprehensive free audit tool I've found. Beats paid alternatives I've tried.",
       author: "Marcus K.",
       role: "E-commerce Consultant",
+      verified: true,
       rating: 5
     },
     {
       quote: "Discovered my checkout page was broken on mobile. Would have never known without this tool!",
       author: "Jennifer L.",
       role: "WooCommerce Store Owner",
+      verified: true,
       rating: 5
     }
   ];
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   const problems = [
     { icon: AlertTriangle, stat: "67%", text: "of stores have critical SEO issues" },
@@ -141,35 +148,48 @@ export default function Home() {
               <div className="bg-white dark:bg-slate-800 p-3 md:p-4 rounded-2xl shadow-2xl">
                 <div className="flex flex-col gap-3">
                   {/* URL Input */}
-                  <div className="relative">
-                    <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                    <Input
-                      type="url"
-                      placeholder="yourstore.com"
-                      value={url}
-                      onChange={(e) => setUrl(e.target.value)}
-                      className="pl-12 h-14 text-base md:text-lg border-2 border-slate-200 dark:border-slate-600 focus:border-green-500 rounded-xl"
-                      required
-                    />
+                  <div>
+                    <label className="block text-left text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5 ml-1">
+                      Your Store URL
+                    </label>
+                    <div className="relative">
+                      <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                      <Input
+                        type="url"
+                        placeholder="yourstore.com"
+                        value={url}
+                        onChange={(e) => setUrl(e.target.value)}
+                        className="pl-12 h-14 text-base md:text-lg border-2 border-slate-200 dark:border-slate-600 focus:border-green-500 rounded-xl"
+                        required
+                      />
+                    </div>
                   </div>
-                  
+
                   {/* Email Input */}
-                  <div className="relative">
-                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                    <Input
-                      type="email"
-                      placeholder="your@email.com (to receive your report)"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="pl-12 h-14 text-base md:text-lg border-2 border-slate-200 dark:border-slate-600 focus:border-green-500 rounded-xl"
-                      required
-                    />
+                  <div>
+                    <label className="block text-left text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5 ml-1">
+                      Your Email
+                    </label>
+                    <div className="relative">
+                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                      <Input
+                        type="email"
+                        placeholder="your@email.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="pl-12 h-14 text-base md:text-lg border-2 border-slate-200 dark:border-slate-600 focus:border-green-500 rounded-xl"
+                        required
+                      />
+                    </div>
+                    <p className="text-left text-xs text-slate-500 dark:text-slate-400 mt-1.5 ml-1">
+                      We'll send your detailed report here. No spam, ever.
+                    </p>
                   </div>
 
                   {/* Submit Button */}
-                  <Button 
-                    type="submit" 
-                    size="xl" 
+                  <Button
+                    type="submit"
+                    size="xl"
                     disabled={isAnalyzing}
                     className="h-14 text-lg font-bold bg-green-600 hover:bg-green-700 rounded-xl w-full"
                   >
@@ -180,7 +200,7 @@ export default function Home() {
                       </>
                     ) : (
                       <>
-                        🚀 Get My Free Audit
+                        See What's Costing You Sales
                         <ArrowRight className="w-5 h-5" />
                       </>
                     )}
@@ -232,7 +252,7 @@ export default function Home() {
       </section>
 
       {/* Problem Agitation Section */}
-      <section className="py-12 md:py-16 bg-slate-50 dark:bg-slate-900/50 border-b">
+      <section className="py-12 md:py-16 bg-slate-100 dark:bg-slate-900/50 border-b">
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold mb-3">
@@ -255,8 +275,54 @@ export default function Home() {
         </div>
       </section>
 
-      {/* What We Check Section */}
+      {/* Inline CTA #1 - After Problem Agitation */}
+      <InlineCTA
+        variant="standard"
+        headline="Stop Losing Sales to Hidden Issues"
+        subtext="Get your free 50-point audit in 60 seconds"
+        ctaText="Analyze My Store Free"
+        onCtaClick={scrollToTop}
+      />
+
+      {/* Testimonials - Moved up for trust building */}
       <section className="py-16 md:py-20 bg-white dark:bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">
+              Loved by E-commerce Store Owners
+            </h2>
+            <p className="text-muted-foreground">Join thousands who've improved their stores</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl border">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-slate-700 dark:text-slate-300 mb-4 italic">
+                  "{testimonial.quote}"
+                </p>
+                <div>
+                  <div className="font-bold">{testimonial.author}</div>
+                  <div className="text-sm text-muted-foreground">{testimonial.role}</div>
+                  {testimonial.verified && (
+                    <div className="flex items-center gap-1 mt-1 text-xs text-green-600 dark:text-green-400">
+                      <BadgeCheck className="w-3.5 h-3.5" />
+                      <span>Verified Store Owner</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* What We Check Section */}
+      <section className="py-16 md:py-20 bg-gradient-to-b from-white to-green-50 dark:from-background dark:to-green-950/20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-4 py-2 rounded-full text-sm font-medium mb-4">
@@ -273,9 +339,9 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {checkpoints.map((checkpoint, index) => (
-              <div 
+              <div
                 key={index}
-                className="p-6 rounded-xl border bg-card hover:shadow-lg transition-all hover:border-green-300 dark:hover:border-green-700 group"
+                className="p-6 rounded-xl border bg-white dark:bg-card hover:shadow-lg transition-all hover:border-green-300 dark:hover:border-green-700 group"
               >
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="font-bold text-lg">{checkpoint.category}</h3>
@@ -297,8 +363,22 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Inline CTA #2 - Social Proof CTA */}
+      <InlineCTA
+        variant="social-proof"
+        headline="Join 12,847+ Store Owners Who Fixed Their Sites"
+        subtext="See what's really happening on your store — completely free"
+        ctaText="Get My Free Audit Now"
+        stats={{
+          storesAudited: sitesAudited,
+          rating: 4.9,
+          resultTime: "60-sec"
+        }}
+        onCtaClick={scrollToTop}
+      />
+
       {/* Sample Report Preview */}
-      <section className="py-16 md:py-20 bg-slate-50 dark:bg-muted/30">
+      <section className="py-16 md:py-20 bg-white dark:bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
@@ -309,7 +389,7 @@ export default function Home() {
                 <p className="text-muted-foreground mb-6">
                   Your personalized report shows you critical issues, actionable fixes, and a clear priority order. No fluff, just results.
                 </p>
-                
+
                 <ul className="space-y-4 mb-8">
                   {[
                     "Prioritized issues by revenue impact",
@@ -327,9 +407,9 @@ export default function Home() {
                   ))}
                 </ul>
 
-                <Button 
-                  size="lg" 
-                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                <Button
+                  size="lg"
+                  onClick={scrollToTop}
                   className="font-bold"
                 >
                   Get Your Free Report
@@ -391,37 +471,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-16 md:py-20 bg-white dark:bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3">
-              Loved by E-commerce Store Owners
-            </h2>
-            <p className="text-muted-foreground">Join thousands who've improved their stores</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl border">
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-slate-700 dark:text-slate-300 mb-4 italic">
-                  "{testimonial.quote}"
-                </p>
-                <div>
-                  <div className="font-bold">{testimonial.author}</div>
-                  <div className="text-sm text-muted-foreground">{testimonial.role}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Platform Support */}
       <section className="py-12 bg-slate-50 dark:bg-muted/30 border-y">
         <div className="container mx-auto px-4">
@@ -437,6 +486,16 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Inline CTA #3 - Urgency CTA */}
+      <InlineCTA
+        variant="urgency"
+        headline="Only X Detailed Reports Left Today"
+        subtext="Basic audits always free, but detailed reports are limited"
+        ctaText="Claim My Report"
+        reportsLeft={reportsLeft}
+        onCtaClick={scrollToTop}
+      />
 
       {/* Final CTA Section */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-green-600 to-green-700 relative overflow-hidden">
@@ -471,28 +530,66 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 border-t bg-white dark:bg-background">
+      {/* Footer - Dark theme matching hero */}
+      <footer className="bg-slate-900 text-white py-12">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <Image 
-                src="/logo.png" 
-                alt="EcomChecklist Logo" 
-                width={28} 
-                height={28}
-                className="rounded-md"
-              />
-              <span className="font-semibold">ecomchecklist.net</span>
+          {/* Main Footer Grid */}
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
+            {/* Left: Logo + Tagline */}
+            <div className="text-center md:text-left">
+              <div className="flex items-center gap-2 justify-center md:justify-start mb-3">
+                <Image
+                  src="/logo.png"
+                  alt="EcomChecklist Logo"
+                  width={32}
+                  height={32}
+                  className="rounded-md"
+                />
+                <span className="font-bold text-lg">ecomchecklist.net</span>
+              </div>
+              <p className="text-slate-400 text-sm">
+                Your store's health, diagnosed.
+              </p>
             </div>
-            <div className="flex items-center gap-6 text-sm text-muted-foreground">
-              <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
-              <a href="#" className="hover:text-foreground transition-colors">Terms</a>
-              <a href="#" className="hover:text-foreground transition-colors">Contact</a>
+
+            {/* Center: Navigation Links */}
+            <div className="text-center">
+              <nav className="flex flex-wrap items-center justify-center gap-6 text-sm">
+                <a href="#" className="text-slate-400 hover:text-white transition-colors">Home</a>
+                <a href="#" className="text-slate-400 hover:text-white transition-colors">Features</a>
+                <a href="#" className="text-slate-400 hover:text-white transition-colors">Privacy</a>
+                <a href="#" className="text-slate-400 hover:text-white transition-colors">Terms</a>
+                <a href="#" className="text-slate-400 hover:text-white transition-colors">Contact</a>
+              </nav>
             </div>
-            <div className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} ecomchecklist.net — All rights reserved.
+
+            {/* Right: CTA + Trust Badges */}
+            <div className="text-center md:text-right">
+              <p className="text-slate-400 text-sm mb-3">Ready to audit your store?</p>
+              <Button
+                size="sm"
+                onClick={scrollToTop}
+                className="bg-green-600 hover:bg-green-700 font-semibold mb-4"
+              >
+                Analyze Free
+                <ArrowRight className="w-4 h-4 ml-1" />
+              </Button>
+              <div className="flex items-center justify-center md:justify-end gap-4 text-xs text-slate-500">
+                <span className="flex items-center gap-1">
+                  <Lock className="w-3 h-3" />
+                  SSL Secured
+                </span>
+                <span className="flex items-center gap-1">
+                  <Shield className="w-3 h-3" />
+                  GDPR Compliant
+                </span>
+              </div>
             </div>
+          </div>
+
+          {/* Bottom Bar */}
+          <div className="pt-8 border-t border-slate-800 text-center text-sm text-slate-500">
+            © {new Date().getFullYear()} ecomchecklist.net — All rights reserved.
           </div>
         </div>
       </footer>

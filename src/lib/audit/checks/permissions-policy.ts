@@ -5,7 +5,7 @@ export const permissionsPolicyCheck: AuditCheck = {
     id: "permissions-policy",
     title: "Permissions-Policy Header",
     category: "security",
-    severity: "minor",
+    severity: "nice",
     whyImportant:
       "Permissions-Policy (formerly Feature-Policy) controls browser features like camera, microphone, and geolocation. Restricting unused features reduces attack surface and protects customer privacy.",
     howToFix:

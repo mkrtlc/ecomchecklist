@@ -5,7 +5,7 @@ export const minifiedAssetsCheck: AuditCheck = {
     id: "minified-assets",
     title: "Minified Assets",
     category: "performance",
-    severity: "minor",
+    severity: "nice",
     whyImportant:
       "Minifying CSS and JavaScript removes whitespace and comments, reducing file sizes by 10-30%. Unminified assets increase load times and bandwidth costs.",
     howToFix:

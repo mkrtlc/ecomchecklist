@@ -5,7 +5,7 @@ export const thirdPartyScriptsCheck: AuditCheck = {
     id: "third-party-scripts",
     title: "Third-Party Scripts Impact",
     category: "performance",
-    severity: "major",
+    severity: "high",
     whyImportant:
       "Third-party scripts (analytics, ads, chat widgets) can significantly impact page load performance. Unoptimized third-party code is a leading cause of poor Core Web Vitals scores.",
     howToFix:
