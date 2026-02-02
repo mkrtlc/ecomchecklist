@@ -37,6 +37,15 @@ import { shippingInfoCheck } from "./shipping-info";
 import { paymentMethodsCheck } from "./payment-methods";
 import { returnPolicyCheck } from "./return-policy";
 
+// Batch 4: UX
+import { mobileResponsiveCheck } from "./mobile-responsive";
+import { searchFunctionalityCheck } from "./search-functionality";
+import { filterSortCheck } from "./filter-sort";
+import { breadcrumbsCheck } from "./breadcrumbs";
+import { notFoundHandlingCheck } from "./404-handling";
+import { productZoomCheck } from "./product-zoom";
+import { sizeGuideCheck } from "./size-guide";
+
 /**
  * Central registry for all audit checks.
  *
@@ -75,6 +84,14 @@ export const CHECKS = [
   shippingInfoCheck,
   paymentMethodsCheck,
   returnPolicyCheck,
+  // Batch 4: UX (7 new)
+  mobileResponsiveCheck,
+  searchFunctionalityCheck,
+  filterSortCheck,
+  breadcrumbsCheck,
+  notFoundHandlingCheck,
+  productZoomCheck,
+  sizeGuideCheck,
 ];
 
 export const CHECK_DEFINITIONS: AuditCheckDefinition[] = CHECKS.map((c) => c.definition);

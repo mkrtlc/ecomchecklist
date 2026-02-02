@@ -36,3 +36,12 @@ export { clearPricingCheck } from "./clear-pricing";
 export { shippingInfoCheck } from "./shipping-info";
 export { paymentMethodsCheck } from "./payment-methods";
 export { returnPolicyCheck } from "./return-policy";
+
+// Batch 4: UX
+export { mobileResponsiveCheck } from "./mobile-responsive";
+export { searchFunctionalityCheck } from "./search-functionality";
+export { filterSortCheck } from "./filter-sort";
+export { breadcrumbsCheck } from "./breadcrumbs";
+export { notFoundHandlingCheck } from "./404-handling";
+export { productZoomCheck } from "./product-zoom";
+export { sizeGuideCheck } from "./size-guide";
