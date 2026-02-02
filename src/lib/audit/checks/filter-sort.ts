@@ -22,8 +22,10 @@ function detectFilterSort(html: string): { hasFilters: boolean; hasSort: boolean
     (filterSignals.some((s) => lower.includes(s)) || /aria-label=["'][^"']*filter/i.test(lower) || /data-filter/i.test(lower));
 
   const hasSort =
-    /sort/i.test(html) &&
-    (sortSignals.some((s) => lower.includes(s)) || /aria-label=["'][^"']*sort/i.test(lower) || /data-sort/i.test(lower));
+    /sort/i.test(html) ||
+    sortSignals.some((s) => lower.includes(s)) ||
+    /aria-label=["'][^"']*sort/i.test(lower) ||
+    /data-sort/i.test(lower);
 
   if (hasFilters) evidence.push("Filter UI detected");
   if (hasSort) evidence.push("Sort UI detected");
