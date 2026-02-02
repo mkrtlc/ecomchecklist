@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Menu, CheckCircle, ArrowRight } from "lucide-react";
+import { trackEvent } from "@/lib/analytics/gtm";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -78,7 +79,10 @@ export function Header() {
           {/* Desktop CTA */}
           <div className="hidden md:block">
             <Button 
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={() => {
+                trackEvent("cta_click", { location: "header_desktop", cta_text: "Analyze Free" });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
               className="bg-green-600 hover:bg-green-700"
             >
               Analyze Free
@@ -118,6 +122,7 @@ export function Header() {
             <Button 
               className="mt-4 w-full bg-green-600 hover:bg-green-700"
               onClick={() => {
+                trackEvent("cta_click", { location: "header_mobile", cta_text: "Analyze Free" });
                 setIsOpen(false);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}

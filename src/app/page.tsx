@@ -68,7 +68,19 @@ export default function Home() {
 
   const handleAnalyze = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!url || !email) return;
+    if (!url || !email) {
+      trackEvent("form_error", {
+        form_id: "audit_form",
+        location: "hero",
+        error: !url ? "missing_url" : "missing_email",
+      });
+      return;
+    }
+
+    trackEvent("form_submit", {
+      form_id: "audit_form",
+      location: "hero",
+    });
 
     setIsAnalyzing(true);
     window.location.href = `/analyze?url=${encodeURIComponent(url)}&email=${encodeURIComponent(email)}`;
