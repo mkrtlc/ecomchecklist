@@ -24,8 +24,10 @@ import {
   Globe,
   Package,
   ExternalLink,
+  BadgeCheck,
 } from "lucide-react";
 import { trackEvent, trackPageView, trackScrollDepth } from "@/lib/analytics/gtm";
+import { InlineCTA } from "@/components/InlineCTA";
 
 export default function Home() {
   const [url, setUrl] = useState("");
@@ -105,21 +107,29 @@ export default function Home() {
         "Found 3 critical issues that were killing my conversion rate. Fixed them and saw 23% increase in sales within a week.",
       author: "Sarah M.",
       role: "Shopify Store Owner",
+      verified: true,
       rating: 5,
     },
     {
       quote: "The most comprehensive free audit tool I've found. Beats paid alternatives I've tried.",
       author: "Marcus K.",
       role: "E-commerce Consultant",
+      verified: true,
       rating: 5,
     },
     {
       quote: "Discovered my checkout page was broken on mobile. Would have never known without this tool!",
       author: "Jennifer L.",
       role: "WooCommerce Store Owner",
+      verified: true,
       rating: 5,
     },
   ];
+
+  const scrollToTop = () => {
+    trackEvent("cta_click", { location: "inline_cta", cta_text: "scroll_to_form" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const problems = [
     { icon: AlertTriangle, stat: "67%", text: "of stores have critical SEO issues" },
@@ -204,67 +214,80 @@ export default function Home() {
               <form onSubmit={handleAnalyze} className="max-w-2xl mx-auto md:mx-0">
                 <div className="bg-slate-800/50 backdrop-blur-xl p-3 md:p-4 rounded-2xl shadow-2xl border border-slate-700/50">
                   <div className="flex flex-col gap-3">
-                    <div className="relative">
-                      <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
-                      <Input
-                        type="url"
-                        placeholder="yourstore.com"
-                        value={url}
-                        onFocus={() => {
-                          trackEvent("url_input_focus", { location: "hero" });
-                          if (!hasStartedFormRef.current) {
-                            hasStartedFormRef.current = true;
-                            trackEvent("form_start", { form_id: "audit_form", location: "hero" });
-                          }
-                        }}
-                        onChange={(e) => {
-                          const next = e.target.value;
-                          setUrl(next);
+                    <div>
+                      <label className="block text-left text-sm font-medium text-slate-300 mb-1.5 ml-1">
+                        Your Store URL
+                      </label>
+                      <div className="relative">
+                        <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                        <Input
+                          type="url"
+                          placeholder="yourstore.com"
+                          value={url}
+                          onFocus={() => {
+                            trackEvent("url_input_focus", { location: "hero" });
+                            if (!hasStartedFormRef.current) {
+                              hasStartedFormRef.current = true;
+                              trackEvent("form_start", { form_id: "audit_form", location: "hero" });
+                            }
+                          }}
+                          onChange={(e) => {
+                            const next = e.target.value;
+                            setUrl(next);
 
-                          if (!hasStartedFormRef.current) {
-                            hasStartedFormRef.current = true;
-                            trackEvent("form_start", { form_id: "audit_form", location: "hero" });
-                          }
+                            if (!hasStartedFormRef.current) {
+                              hasStartedFormRef.current = true;
+                              trackEvent("form_start", { form_id: "audit_form", location: "hero" });
+                            }
 
-                          const now = Date.now();
-                          if (now - lastUrlChangeTrackedAtRef.current > 1500) {
-                            lastUrlChangeTrackedAtRef.current = now;
-                            trackEvent("url_input_change", {
-                              location: "hero",
-                              value_length: next.length,
-                            });
-                          }
-                        }}
-                        className="pl-12 h-14 text-base md:text-lg bg-slate-900/80 border-slate-700 focus:border-amber-500 rounded-xl text-white placeholder:text-slate-500"
-                        required
-                      />
+                            const now = Date.now();
+                            if (now - lastUrlChangeTrackedAtRef.current > 1500) {
+                              lastUrlChangeTrackedAtRef.current = now;
+                              trackEvent("url_input_change", {
+                                location: "hero",
+                                value_length: next.length,
+                              });
+                            }
+                          }}
+                          className="pl-12 h-14 text-base md:text-lg bg-slate-900/80 border-slate-700 focus:border-amber-500 rounded-xl text-white placeholder:text-slate-500"
+                          required
+                        />
+                      </div>
                     </div>
 
-                    <div className="relative">
-                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
-                      <Input
-                        type="email"
-                        placeholder="your@email.com (to receive your report)"
-                        value={email}
-                        onFocus={() => {
-                          trackEvent("email_input_focus", { location: "hero" });
-                          if (!hasStartedFormRef.current) {
-                            hasStartedFormRef.current = true;
-                            trackEvent("form_start", { form_id: "audit_form", location: "hero" });
-                          }
-                        }}
-                        onChange={(e) => {
-                          const next = e.target.value;
-                          setEmail(next);
+                    <div>
+                      <label className="block text-left text-sm font-medium text-slate-300 mb-1.5 ml-1">
+                        Your Email
+                      </label>
+                      <div className="relative">
+                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                        <Input
+                          type="email"
+                          placeholder="your@email.com"
+                          value={email}
+                          onFocus={() => {
+                            trackEvent("email_input_focus", { location: "hero" });
+                            if (!hasStartedFormRef.current) {
+                              hasStartedFormRef.current = true;
+                              trackEvent("form_start", { form_id: "audit_form", location: "hero" });
+                            }
+                          }}
+                          onChange={(e) => {
+                            const next = e.target.value;
+                            setEmail(next);
 
-                          if (!hasStartedFormRef.current) {
-                            hasStartedFormRef.current = true;
-                            trackEvent("form_start", { form_id: "audit_form", location: "hero" });
-                          }
-                        }}
-                        className="pl-12 h-14 text-base md:text-lg bg-slate-900/80 border-slate-700 focus:border-amber-500 rounded-xl text-white placeholder:text-slate-500"
-                        required
-                      />
+                            if (!hasStartedFormRef.current) {
+                              hasStartedFormRef.current = true;
+                              trackEvent("form_start", { form_id: "audit_form", location: "hero" });
+                            }
+                          }}
+                          className="pl-12 h-14 text-base md:text-lg bg-slate-900/80 border-slate-700 focus:border-amber-500 rounded-xl text-white placeholder:text-slate-500"
+                          required
+                        />
+                      </div>
+                      <p className="text-left text-xs text-slate-500 mt-1.5 ml-1">
+                        We&apos;ll send your detailed report here. No spam, ever.
+                      </p>
                     </div>
 
                     <Button
@@ -280,7 +303,7 @@ export default function Home() {
                         </>
                       ) : (
                         <>
-                          Get My Free Audit
+                          See What&apos;s Costing You Sales
                           <ArrowRight className="w-5 h-5" />
                         </>
                       )}
@@ -343,15 +366,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Platforms */}
-      <section className="py-8 bg-white dark:bg-slate-900/30 border-b border-slate-200 dark:border-slate-800">
+      {/* Platforms - Flowing Marquee */}
+      <section className="py-8 bg-white dark:bg-slate-900/30 border-b border-slate-200 dark:border-slate-800 overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="text-center">
-            <p className="text-sm text-slate-500 dark:text-slate-500 mb-6">Works with all major e-commerce platforms</p>
-            <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+          <p className="text-sm text-slate-500 dark:text-slate-500 mb-6 text-center">Works with all major e-commerce platforms</p>
+        </div>
+        <div className="relative">
+          {/* Gradient overlays for smooth edges */}
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white dark:from-slate-900/30 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white dark:from-slate-900/30 to-transparent z-10 pointer-events-none" />
+
+          {/* Marquee container */}
+          <div className="flex animate-marquee">
+            {/* First set of logos */}
+            <div className="flex items-center gap-12 px-6 shrink-0">
               {platforms.map((platform) => (
                 <div
                   key={platform.name}
+                  className="flex items-center justify-center h-10 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                  title={platform.name}
+                >
+                  <Image src={platform.logo} alt={platform.name} width={120} height={40} className="h-8 w-auto object-contain" />
+                </div>
+              ))}
+            </div>
+            {/* Duplicate set for seamless loop */}
+            <div className="flex items-center gap-12 px-6 shrink-0">
+              {platforms.map((platform) => (
+                <div
+                  key={`${platform.name}-dup`}
                   className="flex items-center justify-center h-10 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
                   title={platform.name}
                 >
@@ -388,8 +431,50 @@ export default function Home() {
         </div>
       </section>
 
-      {/* What we check */}
+      {/* Inline CTA #1 - After Problem Agitation */}
+      <InlineCTA
+        variant="standard"
+        headline="Stop Losing Sales to Hidden Issues"
+        subtext="Get your free 50-point audit in 60 seconds"
+        ctaText="Analyze My Store Free"
+        onCtaClick={scrollToTop}
+      />
+
+      {/* Testimonials - Moved up for trust building while pain is fresh */}
       <section className="py-16 md:py-20 bg-slate-50 dark:bg-[#0a0f1a]">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3 text-slate-900 dark:text-white">Loved by E-commerce Store Owners</h2>
+            <p className="text-slate-600 dark:text-slate-400">Join thousands who&apos;ve improved their stores</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="bg-white dark:bg-slate-800/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <p className="text-slate-700 dark:text-slate-300 mb-4 italic">&ldquo;{testimonial.quote}&rdquo;</p>
+                <div>
+                  <div className="font-bold text-slate-900 dark:text-white">{testimonial.author}</div>
+                  <div className="text-sm text-slate-600 dark:text-slate-400">{testimonial.role}</div>
+                  {testimonial.verified && (
+                    <div className="flex items-center gap-1 mt-1 text-xs text-emerald-600 dark:text-emerald-400">
+                      <BadgeCheck className="w-3.5 h-3.5" />
+                      <span>Verified Store Owner</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* What we check */}
+      <section className="py-16 md:py-20 bg-white dark:bg-slate-900/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 px-4 py-2 rounded-full text-sm font-medium mb-4">
@@ -406,7 +491,7 @@ export default function Home() {
             {checkpoints.map((checkpoint, index) => (
               <div
                 key={index}
-                className="p-6 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 hover:shadow-lg transition-all hover:border-amber-300 dark:hover:border-amber-700 group"
+                className="p-6 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 hover:shadow-lg transition-all hover:border-amber-300 dark:hover:border-amber-700 group"
               >
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="font-bold text-lg text-slate-900 dark:text-white">{checkpoint.category}</h3>
@@ -427,6 +512,20 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Inline CTA #2 - Social Proof CTA */}
+      <InlineCTA
+        variant="social-proof"
+        headline="Join 12,847+ Store Owners Who Fixed Their Sites"
+        subtext="See what's really happening on your store — completely free"
+        ctaText="Get My Free Audit Now"
+        stats={{
+          storesAudited: sitesAudited,
+          rating: 4.9,
+          resultTime: "60-sec",
+        }}
+        onCtaClick={scrollToTop}
+      />
 
       {/* Sample report preview */}
       <section className="py-16 md:py-20 bg-white dark:bg-slate-900/30">
@@ -525,34 +624,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-16 md:py-20 bg-slate-50 dark:bg-[#0a0f1a]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3 text-slate-900 dark:text-white">Loved by E-commerce Store Owners</h2>
-            <p className="text-slate-600 dark:text-slate-400">Join thousands who&apos;ve improved their stores</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-white dark:bg-slate-800/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                  ))}
-                </div>
-                <p className="text-slate-700 dark:text-slate-300 mb-4 italic">
-                  &ldquo;{testimonial.quote}&rdquo;
-                </p>
-                <div>
-                  <div className="font-bold text-slate-900 dark:text-white">{testimonial.author}</div>
-                  <div className="text-sm text-slate-600 dark:text-slate-400">{testimonial.role}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Inline CTA #3 - Urgency CTA */}
+      <InlineCTA
+        variant="urgency"
+        headline="Only X Detailed Reports Left Today"
+        subtext="Basic audits always free, but detailed reports are limited"
+        ctaText="Claim My Report"
+        reportsLeft={reportsLeft}
+        onCtaClick={scrollToTop}
+      />
 
       {/* Final CTA */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 relative overflow-hidden">

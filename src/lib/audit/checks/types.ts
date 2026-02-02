@@ -40,6 +40,17 @@ export interface CheckAdapterBundle {
       raw?: unknown;
     }>;
   };
+
+  headers?: {
+    getHeaders: (url: string) => Promise<{ headers: Record<string, string>; raw?: unknown }>;
+  };
+
+  platform?: {
+    detectPlatform: (
+      html: string,
+      url?: string
+    ) => Promise<{ platform: string; confidence?: 'high' | 'medium' | 'low'; raw?: unknown }>;
+  };
 }
 
 export interface AuditCheck {
