@@ -187,7 +187,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mx-auto max-w-6xl grid gap-10 md:gap-12 md:grid-cols-[5fr_7fr] md:items-start">
+          <div className="mx-auto max-w-6xl grid gap-10 md:gap-12 md:grid-cols-[5fr_7fr] md:items-center">
             {/* Left column: Copy + form */}
             <div className="text-center md:text-left">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 md:mb-6 leading-tight">
@@ -338,6 +338,26 @@ export default function Home() {
                   Free forever
                 </span>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Platforms */}
+      <section className="py-8 bg-white dark:bg-slate-900/30 border-b border-slate-200 dark:border-slate-800">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <p className="text-sm text-slate-500 dark:text-slate-500 mb-6">Works with all major e-commerce platforms</p>
+            <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+              {platforms.map((platform) => (
+                <div
+                  key={platform.name}
+                  className="flex items-center justify-center h-10 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                  title={platform.name}
+                >
+                  <Image src={platform.logo} alt={platform.name} width={120} height={40} className="h-8 w-auto object-contain" />
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -530,26 +550,6 @@ export default function Home() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Platforms */}
-      <section className="py-12 bg-white dark:bg-slate-900/30 border-y border-slate-200 dark:border-slate-800">
-        <div className="container mx-auto px-4">
-          <div className="text-center">
-            <p className="text-sm text-slate-500 dark:text-slate-500 mb-8">Works with all major e-commerce platforms</p>
-            <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-              {platforms.map((platform) => (
-                <div
-                  key={platform.name}
-                  className="flex items-center justify-center h-10 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-                  title={platform.name}
-                >
-                  <Image src={platform.logo} alt={platform.name} width={120} height={40} className="h-8 w-auto object-contain" />
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
