@@ -187,7 +187,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mx-auto max-w-6xl grid gap-10 md:gap-12 md:grid-cols-2 md:items-start">
+          <div className="mx-auto max-w-6xl grid gap-10 md:gap-12 md:grid-cols-[5fr_7fr] md:items-start">
             {/* Left column: Copy + form */}
             <div className="text-center md:text-left">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 md:mb-6 leading-tight">
