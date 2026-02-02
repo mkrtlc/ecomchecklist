@@ -24,7 +24,8 @@ import {
   ChevronRight,
   Smartphone,
   Globe,
-  Package
+  Package,
+  ExternalLink
 } from "lucide-react";
 
 export default function Home() {
@@ -188,6 +189,36 @@ export default function Home() {
                 </div>
               </div>
             </form>
+
+            {/* Hero video */}
+            <div className="flex justify-center mt-10 md:mt-12">
+              <div className="relative w-full max-w-2xl rounded-2xl overflow-hidden shadow-xl border-2 border-white/20 bg-black/30 ring-2 ring-white/10">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  controls
+                  preload="metadata"
+                  poster="/hero-poster-16x9.svg"
+                  className="w-full h-full object-cover"
+                  style={{ aspectRatio: "16/9" }}
+                >
+                  <source src="/hero-video-16x9.webm" type="video/webm" />
+                  <source src="/hero-video-16x9.mp4" type="video/mp4" />
+                </video>
+                <a
+                  href="/hero-video-16x9.mp4"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-lg bg-black/60 hover:bg-black/80 text-white text-sm px-3 py-2 transition-colors"
+                  title="Open video in new tab"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Open video
+                </a>
+              </div>
+            </div>
 
             {/* Trust Signals */}
             <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm text-slate-400">

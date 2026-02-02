@@ -242,10 +242,13 @@ export const HeroLeakVideo: React.FC<{variant: '16x9' | '1x1'}> = ({variant}) =>
 	const frame = useCurrentFrame();
 	const {fps, width, height} = useVideoConfig();
 
-	// 60 seconds @30fps
-	const sceneDur = 225; // 7.5s
-	const scene = Math.min(7, Math.floor(frame / sceneDur));
-	const sceneStart = scene * sceneDur;
+	// 60 seconds @30fps — scene timings from HERO_VIDEO_BRIEF.md (8s, 7s, 5s, 8s, 10s, 10s, 5s, 7s)
+	const SCENE_END_FRAMES = [240, 450, 600, 840, 1140, 1440, 1590, 1800];
+	const scene = (() => {
+		const i = SCENE_END_FRAMES.findIndex((end) => frame < end);
+		return i === -1 ? 7 : i;
+	})();
+	const sceneStart = scene === 0 ? 0 : SCENE_END_FRAMES[scene - 1];
 	const local = frame - sceneStart;
 
 	const isSquare = variant === '1x1' || width === height;
@@ -280,11 +283,11 @@ export const HeroLeakVideo: React.FC<{variant: '16x9' | '1x1'}> = ({variant}) =>
 				}}
 			/>
 
-			{/* Scene header copy */}
+			{/* Scene header copy — from HERO_VIDEO_BRIEF.md */}
 			{scene === 0 ? (
 				<Header
-					title={'Your e-commerce store\nis leaking money.'}
-					subtitle={'Find out exactly where in 60 seconds — and what to fix first.'}
+					title={'Your store has problems.'}
+					subtitle={'You just don\'t know where.'}
 					start={sceneStart + 0}
 					centerX={centerX}
 					maxW={maxW}
@@ -292,8 +295,8 @@ export const HeroLeakVideo: React.FC<{variant: '16x9' | '1x1'}> = ({variant}) =>
 			) : null}
 			{scene === 1 ? (
 				<Header
-					title={'Run a 60-second audit'}
-					subtitle={'Paste your store URL. We scan conversion leaks, performance, tracking, and UX.'}
+					title={'10 different tools.'}
+					subtitle={'Hours of work. Hundreds of dollars.'}
 					start={sceneStart + 0}
 					centerX={centerX}
 					maxW={maxW}
@@ -301,8 +304,8 @@ export const HeroLeakVideo: React.FC<{variant: '16x9' | '1x1'}> = ({variant}) =>
 			) : null}
 			{scene === 2 ? (
 				<Header
-					title={'Leak #1: Checkout drop-off'}
-					subtitle={'A small friction point at checkout can cost thousands per month.'}
+					title={'Or... one link. 60 seconds. Free.'}
+					subtitle={undefined}
 					start={sceneStart + 0}
 					centerX={centerX}
 					maxW={maxW}
@@ -310,8 +313,8 @@ export const HeroLeakVideo: React.FC<{variant: '16x9' | '1x1'}> = ({variant}) =>
 			) : null}
 			{scene === 3 ? (
 				<Header
-					title={'Leak #2: Slow mobile speed'}
-					subtitle={'Every extra second increases drop-off — especially on mobile.'}
+					title={'Just paste your URL'}
+					subtitle={undefined}
 					start={sceneStart + 0}
 					centerX={centerX}
 					maxW={maxW}
@@ -319,8 +322,8 @@ export const HeroLeakVideo: React.FC<{variant: '16x9' | '1x1'}> = ({variant}) =>
 			) : null}
 			{scene === 4 ? (
 				<Header
-					title={'Leak #3: Broken tracking'}
-					subtitle={'When events don\'t fire, you can\'t optimize what\'s actually working.'}
+					title={'100 critical checkpoints'}
+					subtitle={'Analyzed in real-time'}
 					start={sceneStart + 0}
 					centerX={centerX}
 					maxW={maxW}
@@ -328,8 +331,8 @@ export const HeroLeakVideo: React.FC<{variant: '16x9' | '1x1'}> = ({variant}) =>
 			) : null}
 			{scene === 5 ? (
 				<Header
-					title={'Leak #4: Missed AOV wins'}
-					subtitle={'Upsells and bundles can raise revenue without more ad spend.'}
+					title={'Instant insights'}
+					subtitle={'Actionable fixes'}
 					start={sceneStart + 0}
 					centerX={centerX}
 					maxW={maxW}
@@ -337,8 +340,8 @@ export const HeroLeakVideo: React.FC<{variant: '16x9' | '1x1'}> = ({variant}) =>
 			) : null}
 			{scene === 6 ? (
 				<Header
-					title={'Get a prioritized fix list'}
-					subtitle={'Clear next steps — what to fix first for the biggest revenue impact.'}
+					title={'Share with your team'}
+					subtitle={'Or your agency'}
 					start={sceneStart + 0}
 					centerX={centerX}
 					maxW={maxW}
@@ -346,8 +349,8 @@ export const HeroLeakVideo: React.FC<{variant: '16x9' | '1x1'}> = ({variant}) =>
 			) : null}
 			{scene === 7 ? (
 				<Header
-					title={'Find out where in 60 seconds.'}
-					subtitle={'Run your free e-commerce audit on northwindoutfitters.com'}
+					title={'Find your store\'s hidden problems'}
+					subtitle={'Free. No signup. Instant results.'}
 					start={sceneStart + 0}
 					centerX={centerX}
 					maxW={maxW}
@@ -405,11 +408,11 @@ export const HeroLeakVideo: React.FC<{variant: '16x9' | '1x1'}> = ({variant}) =>
 
 				{/* content area */}
 				<div style={{position: 'relative', height: canvas.h - 62}}>
-					{/* Scene 0: big alert */}
+					{/* Scene 0: The Problem — conversion going down, red warnings */}
 					{scene === 0 ? (
 						<>
 							<LeakChip
-								label={'Revenue leak detected'}
+								label={'Conversion dropping'}
 								color={COLORS.error}
 								start={sceneStart + 18}
 								x={32}
@@ -442,9 +445,13 @@ export const HeroLeakVideo: React.FC<{variant: '16x9' | '1x1'}> = ({variant}) =>
 									...fadeInUp(frame, sceneStart + 22, 14, 18),
 								}}
 							>
-								Potential loss:
+								Conversion rate:
 								<span style={{marginLeft: 10}}>
-									<MonoNumber value={'$3,420/mo'} color={COLORS.error} fontSize={isSquare ? 40 : 44} />
+									<MonoNumber
+										value={`${Number(interpolate(local, [0, 90, 150, 240], [2.3, 1.8, 1.2, 1.2], {easing: easeUi})).toFixed(1)}%`}
+										color={COLORS.error}
+										fontSize={isSquare ? 40 : 44}
+									/>
 								</span>
 							</div>
 							<div
@@ -461,13 +468,97 @@ export const HeroLeakVideo: React.FC<{variant: '16x9' | '1x1'}> = ({variant}) =>
 									...fadeInUp(frame, sceneStart + 30, 14, 16),
 								}}
 							>
-								We\'ll pinpoint the biggest revenue leaks — and give you a fix-first checklist.
+								Red warning icons — your store has problems you can\'t see.
 							</div>
 						</>
 					) : null}
 
-					{/* Scene 1: URL + scan */}
+					{/* Scene 1: The Struggle — 10 tools, hours, hundreds of dollars */}
 					{scene === 1 ? (
+						<>
+							{[
+								{label: 'PageSpeed', price: '$99/mo', start: sceneStart + 20},
+								{label: 'GTmetrix', price: '$199/mo', start: sceneStart + 35},
+								{label: 'Ahrefs', price: '$49/mo', start: sceneStart + 50},
+							].map((tool, i) => (
+								<div
+									key={tool.label}
+									style={{
+										position: 'absolute',
+										left: 32 + (i % 2) * ((canvas.w - 120) / 2),
+										top: 80 + Math.floor(i / 2) * 140,
+										width: (canvas.w - 120) / 2 - 16,
+										borderRadius: 16,
+										border: '1px solid rgba(248,250,252,0.12)',
+										background: 'rgba(248,250,252,0.04)',
+										padding: 18,
+										...fadeInUp(frame, tool.start, 12, 16),
+									}}
+								>
+									<div style={{color: 'rgba(248,250,252,0.6)', fontFamily: 'Inter, system-ui', fontSize: 14}}>
+										{tool.label}
+									</div>
+									<MonoNumber value={tool.price} color={COLORS.warning} fontSize={28} />
+								</div>
+							))}
+							<div
+								style={{
+									position: 'absolute',
+									left: 32,
+									top: isSquare ? 380 : 340,
+									fontFamily: 'Inter, system-ui',
+									fontWeight: 700,
+									fontSize: 18,
+									color: 'rgba(248,250,252,0.8)',
+									...fadeInUp(frame, sceneStart + 80, 14, 12),
+								}}
+							>
+								10 different tools. Hours of work. Hundreds of dollars.
+							</div>
+						</>
+					) : null}
+
+					{/* Scene 2: Solution intro — Or... one link. 60 seconds. Free. */}
+					{scene === 2 ? (
+						<>
+							<div
+								style={{
+									position: 'absolute',
+									left: 32,
+									top: isSquare ? 180 : 160,
+									width: canvas.w - 64,
+									textAlign: 'center',
+									...fadeInUp(frame, sceneStart + 20, 18, 24),
+								}}
+							>
+								<div
+									style={{
+										fontFamily: 'Inter, ui-sans-serif, system-ui',
+										fontWeight: 800,
+										fontSize: isSquare ? 28 : 36,
+										color: COLORS.primary,
+										letterSpacing: '-0.02em',
+										marginBottom: 12,
+									}}
+								>
+									EcomChecklist
+								</div>
+								<div
+									style={{
+										fontFamily: 'Inter, ui-sans-serif, system-ui',
+										fontWeight: 600,
+										fontSize: isSquare ? 18 : 22,
+										color: 'rgba(248,250,252,0.85)',
+									}}
+								>
+									Or... one link. 60 seconds. Free.
+								</div>
+							</div>
+						</>
+					) : null}
+
+					{/* Scene 3: Demo input — Just paste your URL */}
+					{scene === 3 ? (
 						<>
 							<div
 								style={{
@@ -493,8 +584,7 @@ export const HeroLeakVideo: React.FC<{variant: '16x9' | '1x1'}> = ({variant}) =>
 											placeItems: 'center',
 											color: COLORS.primary,
 											fontWeight: 800,
-											fontFamily:
-												'Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial',
+											fontFamily: 'Inter, ui-sans-serif, system-ui',
 										}}
 									>
 										URL
@@ -504,7 +594,7 @@ export const HeroLeakVideo: React.FC<{variant: '16x9' | '1x1'}> = ({variant}) =>
 											Store URL
 										</div>
 										<div style={{marginTop: 4}}>
-											<MonoNumber value={'northwindoutfitters.com'} color={COLORS.text} fontSize={26} />
+											<MonoNumber value={'mystore.com'} color={COLORS.text} fontSize={26} />
 										</div>
 									</div>
 									<div
@@ -523,295 +613,208 @@ export const HeroLeakVideo: React.FC<{variant: '16x9' | '1x1'}> = ({variant}) =>
 									</div>
 								</div>
 							</div>
-
-							<ProgressPill
-								label={'Scanning in real-time'}
-								percent={92}
-								color={COLORS.primary}
-								start={sceneStart + 44}
-								x={32}
-								y={130}
-								w={canvas.w - 64}
-							/>
-
-							<ProgressPill
-								label={'Finding revenue leaks'}
-								percent={78}
-								color={COLORS.error}
-								start={sceneStart + 56}
-								x={32}
-								y={214}
-								w={canvas.w - 64}
-							/>
-
-							<ProgressPill
-								label={'Generating fix list'}
-								percent={64}
-								color={COLORS.success}
-								start={sceneStart + 68}
-								x={32}
-								y={298}
-								w={canvas.w - 64}
-							/>
-						</>
-					) : null}
-
-					{/* Scene 2: checkout funnel */}
-					{scene === 2 ? (
-						<>
-							<LeakChip label={'High drop-off'} color={COLORS.error} start={sceneStart + 18} x={32} y={28} />
 							<div
 								style={{
 									position: 'absolute',
 									left: 32,
-									top: 84,
-									width: canvas.w - 64,
-									height: 420,
-									borderRadius: 16,
-									border: '1px solid rgba(248,250,252,0.08)',
-									background: 'rgba(248,250,252,0.03)',
+									top: 130,
+									color: 'rgba(248,250,252,0.6)',
+									fontFamily: 'Inter, system-ui',
+									fontSize: 14,
+									...fadeInUp(frame, sceneStart + 60, 12, 8),
 								}}
 							>
-								{['Add to cart', 'Checkout', 'Payment', 'Order complete'].map((step, i) => {
-									const delay = sceneStart + 28 + i * 4; // 50-100ms stagger
-									const p = clamp01((frame - delay) / 12);
-									const w = canvas.w - 140;
-									const barW = Math.round(w * (1 - i * 0.18));
-									const isLeak = i === 1;
-									const color = isLeak ? COLORS.error : COLORS.primary;
-									return (
-										<div key={step} style={{position: 'absolute', left: 28, top: 24 + i * 90, width: '100%'}}>
-											<div
-												style={{
-													fontFamily:
-														'Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial',
-													fontWeight: 600,
-													fontSize: 16,
-													color: 'rgba(248,250,252,0.80)',
-													opacity: interpolate(p, [0, 1], [0, 1], {easing: easeUi}),
-													transform: `translateY(${interpolate(p, [0, 1], [10, 0], {easing: easeUi})}px)`,
-												}}
-											>
-												{step}
-											</div>
-											<div style={{marginTop: 10, height: 14, borderRadius: 999, background: 'rgba(248,250,252,0.10)', overflow: 'hidden', width: w}}>
-												<div
-													style={{
-														height: '100%',
-														width: `${Math.round(interpolate(p, [0, 1], [0, barW], {easing: easeUi}))}px`,
-														background: color,
-														borderRadius: 999,
-														boxShadow: isLeak ? `0 0 22px ${COLORS.error}55` : `0 0 16px ${COLORS.primary}33`,
-													}}
-												/>
-											</div>
-											{isLeak ? (
-												<div style={{marginTop: 10, color: COLORS.error, fontFamily: 'Inter, system-ui', fontWeight: 700}}>
-													Leak: extra fields + hidden shipping costs
-												</div>
-											) : null}
-										</div>
-									);
-								})}
+								Just paste your URL — loading starts in one click.
 							</div>
-							<div style={{position: 'absolute', left: 32, top: 530}}>
-								<MonoNumber value={'-18%'} color={COLORS.error} fontSize={54} />
-								<div style={{marginTop: 6, color: 'rgba(248,250,252,0.70)', fontFamily: 'Inter, system-ui', fontSize: 16}}>
-									Checkout conversion vs. benchmark
-								</div>
-							</div>
+							<ProgressPill
+								label={'Scanning...'}
+								percent={100}
+								color={COLORS.primary}
+								start={sceneStart + 80}
+								x={32}
+								y={200}
+								w={canvas.w - 64}
+							/>
 						</>
 					) : null}
 
-					{/* Scene 3: speed */}
-					{scene === 3 ? (
-						<>
-							<LeakChip label={'Mobile speed'} color={COLORS.warning} start={sceneStart + 18} x={32} y={28} />
-							<div style={{position: 'absolute', left: 32, top: 92, width: canvas.w - 64, height: 520, borderRadius: 16, border: '1px solid rgba(248,250,252,0.08)', background: 'rgba(248,250,252,0.03)'}}>
-								{(() => {
-									const reveal = spring({frame: local - 18, fps, config: {damping: 18, stiffness: 90}});
-									const ms = Math.round(interpolate(reveal, [0, 1], [0, 2840], {easing: easeUi}));
-									const gauge = interpolate(reveal, [0, 1], [0, 0.78], {easing: easeUi});
-									return (
-										<>
-											<div style={{position: 'absolute', left: 28, top: 26, color: 'rgba(248,250,252,0.80)', fontFamily: 'Inter, system-ui', fontWeight: 700, fontSize: 16}}>
-												Largest Contentful Paint (LCP)
-											</div>
-											<div style={{position: 'absolute', left: 28, top: 70}}>
-												<MonoNumber value={`${ms}ms`} color={ms > 2500 ? COLORS.error : COLORS.success} fontSize={60} />
-											</div>
-											<div style={{position: 'absolute', left: 28, top: 148, color: 'rgba(248,250,252,0.65)', fontFamily: 'Inter, system-ui', fontSize: 16}}>
-												Target: <span style={{color: COLORS.success, fontWeight: 700}}>≤ 2500ms</span>
-											</div>
-											<div style={{position: 'absolute', left: 28, top: 220, width: canvas.w - 120, height: 14, borderRadius: 999, background: 'rgba(248,250,252,0.10)', overflow: 'hidden'}}>
-												<div style={{height: '100%', width: `${Math.round(gauge * 100)}%`, background: COLORS.warning, borderRadius: 999, boxShadow: `0 0 18px ${COLORS.warning}55`}} />
-											</div>
-											<div style={{position: 'absolute', left: 28, top: 270, display: 'grid', gap: 10}}>
-												{[
-													{t: 'Compress hero images', c: COLORS.success},
-													{t: 'Defer non-critical scripts', c: COLORS.warning},
-													{t: 'Fix layout shift on PDP', c: COLORS.warning},
-												].map((it, i) => {
-													const st = sceneStart + 44 + i * 3;
-													return (
-														<div key={it.t} style={{display: 'flex', gap: 10, alignItems: 'center', ...fadeInUp(frame, st, 12, 12)}}>
-															<div style={{width: 10, height: 10, borderRadius: 999, background: it.c}} />
-															<div style={{color: 'rgba(248,250,252,0.78)', fontFamily: 'Inter, system-ui', fontWeight: 600}}>
-																{it.t}
-															</div>
-														</div>
-													);
-												})}
-											</div>
-										</>
-									);
-								})()}
-							</div>
-						</>
-					) : null}
-
-					{/* Scene 4: tracking */}
+					{/* Scene 4: Demo analysis — 100 critical checkpoints, analyzed in real-time */}
 					{scene === 4 ? (
 						<>
-							<LeakChip label={'Tracking'} color={COLORS.error} start={sceneStart + 18} x={32} y={28} />
-							<div style={{position: 'absolute', left: 32, top: 92, width: canvas.w - 64, height: 520, borderRadius: 16, border: '1px solid rgba(248,250,252,0.08)', background: 'rgba(248,250,252,0.03)'}}>
-								<div style={{position: 'absolute', left: 28, top: 26, color: 'rgba(248,250,252,0.80)', fontFamily: 'Inter, system-ui', fontWeight: 700, fontSize: 16}}>
-									Event Health
-								</div>
-								{[
-									{name: 'view_item', ok: true},
-									{name: 'add_to_cart', ok: true},
-									{name: 'begin_checkout', ok: false},
-									{name: 'purchase', ok: false},
-								].map((ev, i) => {
-									const st = sceneStart + 30 + i * 3;
-									const c = ev.ok ? COLORS.success : COLORS.error;
-									return (
-										<div
-											key={ev.name}
-											style={{
-												position: 'absolute',
-												left: 28,
-												top: 84 + i * 70,
-												width: canvas.w - 120,
-												borderRadius: 14,
-												border: '1px solid rgba(248,250,252,0.08)',
-												background: 'rgba(15,23,42,0.35)',
-												padding: '14px 14px',
-												display: 'flex',
-												alignItems: 'center',
-												justifyContent: 'space-between',
-												...fadeInUp(frame, st, 12, 12),
-											}}
-										>
-											<div style={{display: 'flex', alignItems: 'center', gap: 12}}>
-												<div style={{width: 10, height: 10, borderRadius: 999, background: c}} />
-												<MonoNumber value={ev.name} fontSize={18} color={'rgba(248,250,252,0.92)'} />
-											</div>
-											<div style={{color: c, fontFamily: 'Inter, system-ui', fontWeight: 800}}>
-												{ev.ok ? 'OK' : 'MISSING'}
-											</div>
-										</div>
-									);
-								})}
-
-								<div style={{position: 'absolute', left: 28, top: 392, width: canvas.w - 120, borderRadius: 16, padding: 16, border: '1px solid rgba(239,68,68,0.28)', background: 'rgba(239,68,68,0.10)', ...fadeInUp(frame, sceneStart + 52, 12, 14)}}>
-									<div style={{color: COLORS.text, fontFamily: 'Inter, system-ui', fontWeight: 800, fontSize: 18}}>
-										You\'re flying blind
+							<div style={{position: 'absolute', left: 28, top: 26, color: 'rgba(248,250,252,0.80)', fontFamily: 'Inter, system-ui', fontWeight: 700, fontSize: 16}}>
+								100 critical checkpoints — analyzed in real-time
+							</div>
+							{[
+								{label: 'SEO', count: 20, start: sceneStart + 20},
+								{label: 'Performance', count: 15, start: sceneStart + 40},
+								{label: 'Security', count: 15, start: sceneStart + 60},
+								{label: 'Conversion', count: 20, start: sceneStart + 80},
+								{label: 'Mobile', count: 10, start: sceneStart + 100},
+							].map((cat, i) => (
+								<div
+									key={cat.label}
+									style={{
+										position: 'absolute',
+										left: 28,
+										top: 84 + i * 72,
+										width: canvas.w - 120,
+										borderRadius: 14,
+										border: '1px solid rgba(248,250,252,0.08)',
+										background: 'rgba(15,23,42,0.35)',
+										padding: '14px 18px',
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'space-between',
+										...fadeInUp(frame, cat.start, 12, 12),
+									}}
+								>
+									<div style={{display: 'flex', alignItems: 'center', gap: 12}}>
+										<div style={{width: 10, height: 10, borderRadius: 999, background: COLORS.success}} />
+										<span style={{color: 'rgba(248,250,252,0.92)', fontFamily: 'Inter, system-ui', fontWeight: 700, fontSize: 16}}>
+											{cat.label}
+										</span>
 									</div>
-									<div style={{marginTop: 8, color: 'rgba(248,250,252,0.74)', fontFamily: 'Inter, system-ui', fontWeight: 600, fontSize: 16, lineHeight: 1.35}}>
-										Fix events to unlock ROAS improvements and accurate attribution.
-									</div>
+									<MonoNumber value={`${cat.count} checks`} color={COLORS.primary} fontSize={16} />
 								</div>
+							))}
+							<div
+								style={{
+									position: 'absolute',
+									left: 28,
+									top: 460,
+									fontFamily: 'JetBrains Mono, monospace',
+									fontSize: 18,
+									color: 'rgba(248,250,252,0.7)',
+									...fadeInUp(frame, sceneStart + 140, 14, 8),
+								}}
+							>
+								{Math.min(100, Math.round(20 + (local / 300) * 80))}/100 checks complete...
 							</div>
 						</>
 					) : null}
 
-					{/* Scene 5: AOV */}
+					{/* Scene 5: Demo results — Instant insights, Actionable fixes, score 67 */}
 					{scene === 5 ? (
 						<>
-							<LeakChip label={'Average order value'} color={COLORS.primary} start={sceneStart + 18} x={32} y={28} />
-							<div style={{position: 'absolute', left: 32, top: 92, width: canvas.w - 64, height: 520, borderRadius: 16, border: '1px solid rgba(248,250,252,0.08)', background: 'rgba(248,250,252,0.03)'}}>
-								<div style={{position: 'absolute', left: 28, top: 26, color: 'rgba(248,250,252,0.80)', fontFamily: 'Inter, system-ui', fontWeight: 700, fontSize: 16}}>
-									Revenue per order
-								</div>
-
-								<div style={{position: 'absolute', left: 28, top: 72, display: 'flex', alignItems: 'baseline', gap: 14}}>
-									<MonoNumber value={'$42.10'} color={COLORS.text} fontSize={62} />
-									<div style={{color: COLORS.success, fontFamily: 'Inter, system-ui', fontWeight: 800, fontSize: 22, ...fadeInUp(frame, sceneStart + 28, 12, 8)}}>
-										+12% possible
-									</div>
-								</div>
-
-								{[
-									{t: 'Post-purchase upsell', c: COLORS.success},
-									{t: 'Bundles on PDP', c: COLORS.success},
-									{t: 'Free shipping threshold', c: COLORS.warning},
-								].map((it, i) => (
-									<div key={it.t} style={{position: 'absolute', left: 28, top: 188 + i * 76, width: canvas.w - 120, borderRadius: 16, border: '1px solid rgba(248,250,252,0.08)', background: 'rgba(15,23,42,0.35)', padding: 16, display: 'flex', alignItems: 'center', justifyContent: 'space-between', ...fadeInUp(frame, sceneStart + 36 + i * 3, 12, 12)}}>
-										<div style={{display: 'flex', alignItems: 'center', gap: 12}}>
-											<div style={{width: 10, height: 10, borderRadius: 999, background: it.c}} />
-											<div style={{color: 'rgba(248,250,252,0.82)', fontFamily: 'Inter, system-ui', fontWeight: 700, fontSize: 16}}>{it.t}</div>
-										</div>
-										<div style={{color: it.c, fontFamily: 'Inter, system-ui', fontWeight: 900}}>
-											Impact
-										</div>
-									</div>
-								))}
+							<div style={{position: 'absolute', left: 28, top: 26, color: 'rgba(248,250,252,0.80)', fontFamily: 'Inter, system-ui', fontWeight: 700, fontSize: 16}}>
+								Instant insights — actionable fixes
 							</div>
+							<div
+								style={{
+									position: 'absolute',
+									right: 28,
+									top: 60,
+									...fadeInUp(frame, sceneStart + 20, 14, 12),
+								}}
+							>
+								<MonoNumber
+									value={String(Math.min(67, Math.round(interpolate(local, [0, 90], [0, 67], {easing: easeUi}))))}
+									color={COLORS.warning}
+									fontSize={56}
+								/>
+								<div style={{fontSize: 14, color: 'rgba(248,250,252,0.6)', fontFamily: 'Inter, system-ui'}}>/100</div>
+							</div>
+							{[
+								{label: 'SEO', score: '14/20', status: 'warning', start: sceneStart + 30},
+								{label: 'Performance', score: '8/15', status: 'error', start: sceneStart + 50},
+								{label: 'Security', score: '13/15', status: 'success', start: sceneStart + 70},
+								{label: 'Conversion', score: '12/20', status: 'warning', start: sceneStart + 90},
+							].map((row, i) => {
+								const c = row.status === 'success' ? COLORS.success : row.status === 'warning' ? COLORS.warning : COLORS.error;
+								return (
+									<div
+										key={row.label}
+										style={{
+											position: 'absolute',
+											left: 28,
+											top: 140 + i * 72,
+											width: canvas.w - 120,
+											borderRadius: 14,
+											border: '1px solid rgba(248,250,252,0.08)',
+											background: 'rgba(15,23,42,0.35)',
+											padding: '12px 18px',
+											display: 'flex',
+											alignItems: 'center',
+											justifyContent: 'space-between',
+											...fadeInUp(frame, row.start, 12, 12),
+										}}
+									>
+										<span style={{color: 'rgba(248,250,252,0.88)', fontFamily: 'Inter, system-ui', fontWeight: 700, fontSize: 16}}>
+											{row.label}
+										</span>
+										<MonoNumber value={row.score} color={c} fontSize={18} />
+									</div>
+								);
+							})}
 						</>
 					) : null}
 
-					{/* Scene 6: prioritized fix list */}
+					{/* Scene 6: PDF report tease — Share with your team / Or your agency */}
 					{scene === 6 ? (
 						<>
-							<LeakChip label={'Prioritized fixes'} color={COLORS.success} start={sceneStart + 18} x={32} y={28} />
-							<div style={{position: 'absolute', left: 32, top: 92, width: canvas.w - 64, height: 520, borderRadius: 16, border: '1px solid rgba(248,250,252,0.08)', background: 'rgba(248,250,252,0.03)'}}>
-								<div style={{position: 'absolute', left: 28, top: 26, color: 'rgba(248,250,252,0.80)', fontFamily: 'Inter, system-ui', fontWeight: 700, fontSize: 16}}>
-									Fix-first checklist
-								</div>
-
-								{[
-									{t: 'Remove 2 checkout fields', c: COLORS.success, m: '+0.8% CVR'},
-									{t: 'Compress hero images', c: COLORS.success, m: '-600ms LCP'},
-									{t: 'Fix begin_checkout event', c: COLORS.warning, m: 'Accurate ROAS'},
-									{t: 'Add bundle offer on PDP', c: COLORS.success, m: '+$4.10 AOV'},
-								].map((it, i) => (
-									<div key={it.t} style={{position: 'absolute', left: 28, top: 84 + i * 92, width: canvas.w - 120, borderRadius: 16, border: '1px solid rgba(248,250,252,0.08)', background: 'rgba(15,23,42,0.35)', padding: '16px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', ...fadeInUp(frame, sceneStart + 26 + i * 3, 12, 12)}}>
-										<div style={{display: 'flex', alignItems: 'center', gap: 12}}>
-											<div style={{width: 18, height: 18, borderRadius: 6, background: 'rgba(34,197,94,0.15)', border: `1px solid rgba(34,197,94,0.35)`, display: 'grid', placeItems: 'center'}}>
-												<div style={{width: 9, height: 9, borderRadius: 2, background: it.c}} />
-											</div>
-											<div>
-												<div style={{color: 'rgba(248,250,252,0.86)', fontFamily: 'Inter, system-ui', fontWeight: 800, fontSize: 16}}>{it.t}</div>
-												<div style={{marginTop: 6, color: 'rgba(248,250,252,0.62)', fontFamily: 'Inter, system-ui', fontWeight: 600, fontSize: 14}}>{it.m}</div>
-											</div>
+							<div style={{position: 'absolute', left: 28, top: 26, color: 'rgba(248,250,252,0.80)', fontFamily: 'Inter, system-ui', fontWeight: 700, fontSize: 16}}>
+								Share with your team — or your agency
+							</div>
+							{[
+								{title: 'Executive Summary', start: sceneStart + 20},
+								{title: 'Detailed findings', start: sceneStart + 45},
+								{title: 'Priority fix list', start: sceneStart + 70},
+							].map((page, i) => (
+								<div
+									key={page.title}
+									style={{
+										position: 'absolute',
+										left: 28,
+										top: 84 + i * 100,
+										width: canvas.w - 120,
+										borderRadius: 14,
+										border: '1px solid rgba(248,250,252,0.10)',
+										background: 'rgba(248,250,252,0.04)',
+										padding: '18px 20px',
+										display: 'flex',
+										alignItems: 'center',
+										gap: 14,
+										...fadeInUp(frame, page.start, 14, 12),
+									}}
+								>
+									<div
+										style={{
+											width: 40,
+											height: 52,
+											borderRadius: 4,
+											background: 'rgba(239,68,68,0.15)',
+											border: '1px solid rgba(248,250,252,0.12)',
+										}}
+									/>
+									<div>
+										<div style={{color: 'rgba(248,250,252,0.92)', fontFamily: 'Inter, system-ui', fontWeight: 800, fontSize: 16}}>
+											{page.title}
 										</div>
-										<div style={{color: it.c, fontFamily: 'Inter, system-ui', fontWeight: 900, fontSize: 14}}>
-											Priority {i + 1}
+										<div style={{marginTop: 4, color: 'rgba(248,250,252,0.6)', fontFamily: 'Inter, system-ui', fontSize: 14}}>
+											PDF Report • EcomChecklist
 										</div>
 									</div>
-								))}
-							</div>
+								</div>
+							))}
 						</>
 					) : null}
 
-					{/* Scene 7: CTA */}
+					{/* Scene 7: CTA — Find your store's hidden problems / Free. No signup. Instant results. */}
 					{scene === 7 ? (
 						<>
 							<div style={{position: 'absolute', left: 32, top: 92, width: canvas.w - 64, height: 520, borderRadius: 18, border: '1px solid rgba(59,130,246,0.35)', background: 'linear-gradient(135deg, rgba(59,130,246,0.18) 0%, rgba(15,23,42,0.25) 55%, rgba(34,197,94,0.10) 100%)'}} />
 							<div style={{position: 'absolute', left: 56, top: 132, ...fadeInUp(frame, sceneStart + 14, 14, 18)}}>
 								<div style={{fontFamily: 'Inter, system-ui', fontWeight: 900, fontSize: isSquare ? 34 : 40, color: COLORS.text, letterSpacing: '-0.03em'}}>
-									Your e-commerce store is leaking money.
+									Find your store\'s hidden problems
 								</div>
 								<div style={{marginTop: 14, fontFamily: 'Inter, system-ui', fontWeight: 600, fontSize: 18, color: 'rgba(248,250,252,0.78)', maxWidth: canvas.w - 140}}>
-									Find out where in 60 seconds.
+									Free. No signup. Instant results.
 								</div>
 							</div>
 
 							<div style={{position: 'absolute', left: 56, top: 260, width: canvas.w - 140, borderRadius: 16, border: '1px solid rgba(248,250,252,0.10)', background: 'rgba(15,23,42,0.35)', padding: 16, ...fadeInUp(frame, sceneStart + 28, 14, 14)}}>
 								<div style={{color: 'rgba(248,250,252,0.70)', fontFamily: 'Inter, system-ui', fontSize: 14, fontWeight: 700}}>
-									Store URL
+									Enter your store URL...
 								</div>
 								<div style={{marginTop: 6}}>
 									<MonoNumber value={'northwindoutfitters.com'} color={COLORS.text} fontSize={28} />
@@ -820,7 +823,7 @@ export const HeroLeakVideo: React.FC<{variant: '16x9' | '1x1'}> = ({variant}) =>
 
 							<div style={{position: 'absolute', left: 56, top: 370, display: 'flex', gap: 14, alignItems: 'center', ...fadeInUp(frame, sceneStart + 38, 14, 12)}}>
 								<div style={{padding: '14px 18px', borderRadius: 14, background: COLORS.primary, color: '#fff', fontFamily: 'Inter, system-ui', fontWeight: 900}}>
-									Run free audit
+									Analyze Free
 								</div>
 								<div style={{padding: '14px 18px', borderRadius: 14, background: 'rgba(248,250,252,0.06)', border: '1px solid rgba(248,250,252,0.12)', color: 'rgba(248,250,252,0.86)', fontFamily: 'Inter, system-ui', fontWeight: 800}}>
 									No signup required
