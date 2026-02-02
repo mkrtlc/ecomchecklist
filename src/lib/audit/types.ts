@@ -11,6 +11,7 @@ export type AuditCategoryId =
   | "ux"
   | "content"
   | "analytics"
+  | "technical"
   | "other";
 
 export interface CheckReference {

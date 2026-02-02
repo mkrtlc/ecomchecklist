@@ -46,6 +46,25 @@ import { notFoundHandlingCheck } from "./404-handling";
 import { productZoomCheck } from "./product-zoom";
 import { sizeGuideCheck } from "./size-guide";
 
+// Batch 5: Technical
+import { brokenLinksCheck } from "./broken-links";
+import { redirectChainsCheck } from "./redirect-chains";
+import { gzipCompressionCheck } from "./gzip-compression";
+import { minifiedAssetsCheck } from "./minified-assets";
+import { dnsPrefetchCheck } from "./dns-prefetch";
+import { lazyLoadingCheck } from "./lazy-loading";
+import { fontLoadingCheck } from "./font-loading";
+import { thirdPartyScriptsCheck } from "./third-party-scripts";
+
+// Batch 6: Security + Performance
+import { hstsHeaderCheck } from "./hsts-header";
+import { xFrameOptionsCheck } from "./x-frame-options";
+import { contentTypeOptionsCheck } from "./content-type-options";
+import { referrerPolicyCheck } from "./referrer-policy";
+import { permissionsPolicyCheck } from "./permissions-policy";
+import { resourceHintsCheck } from "./resource-hints";
+import { criticalCssCheck } from "./critical-css";
+
 /**
  * Central registry for all audit checks.
  *
@@ -92,6 +111,23 @@ export const CHECKS = [
   notFoundHandlingCheck,
   productZoomCheck,
   sizeGuideCheck,
+  // Batch 5: Technical (8 new)
+  brokenLinksCheck,
+  redirectChainsCheck,
+  gzipCompressionCheck,
+  minifiedAssetsCheck,
+  dnsPrefetchCheck,
+  lazyLoadingCheck,
+  fontLoadingCheck,
+  thirdPartyScriptsCheck,
+  // Batch 6: Security + Performance (7 new)
+  hstsHeaderCheck,
+  xFrameOptionsCheck,
+  contentTypeOptionsCheck,
+  referrerPolicyCheck,
+  permissionsPolicyCheck,
+  resourceHintsCheck,
+  criticalCssCheck,
 ];
 
 export const CHECK_DEFINITIONS: AuditCheckDefinition[] = CHECKS.map((c) => c.definition);

@@ -45,3 +45,41 @@ export { breadcrumbsCheck } from "./breadcrumbs";
 export { notFoundHandlingCheck } from "./404-handling";
 export { productZoomCheck } from "./product-zoom";
 export { sizeGuideCheck } from "./size-guide";
+
+// Batch 5: Technical
+export { brokenLinksCheck } from "./broken-links";
+export { redirectChainsCheck } from "./redirect-chains";
+export { gzipCompressionCheck } from "./gzip-compression";
+export { minifiedAssetsCheck } from "./minified-assets";
+export { dnsPrefetchCheck } from "./dns-prefetch";
+export { lazyLoadingCheck } from "./lazy-loading";
+export { fontLoadingCheck } from "./font-loading";
+export { thirdPartyScriptsCheck } from "./third-party-scripts";
+
+// Batch 6: Security + Performance
+export { hstsHeaderCheck } from "./hsts-header";
+export { xFrameOptionsCheck } from "./x-frame-options";
+export { contentTypeOptionsCheck } from "./content-type-options";
+export { referrerPolicyCheck } from "./referrer-policy";
+export { permissionsPolicyCheck } from "./permissions-policy";
+export { resourceHintsCheck } from "./resource-hints";
+export { criticalCssCheck } from "./critical-css";
+
+// Batch 5: Technical
+export { brokenLinksCheck } from "./broken-links";
+export { redirectChainsCheck } from "./redirect-chains";
+export { gzipCompressionCheck } from "./gzip-compression";
+export { minifiedAssetsCheck } from "./minified-assets";
+export { dnsPrefetchCheck } from "./dns-prefetch";
+export { lazyLoadingCheck } from "./lazy-loading";
+export { fontLoadingCheck } from "./font-loading";
+export { thirdPartyScriptsCheck } from "./third-party-scripts";
+
+// Batch 6: Security + Performance
+export { hstsHeaderCheck } from "./hsts-header";
+export { xFrameOptionsCheck } from "./x-frame-options";
+export { contentTypeOptionsCheck } from "./content-type-options";
+export { referrerPolicyCheck } from "./referrer-policy";
+export { permissionsPolicyCheck } from "./permissions-policy";
+export { resourceHintsCheck } from "./resource-hints";
+export { criticalCssCheck } from "./critical-css";
