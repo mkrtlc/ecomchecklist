@@ -14,6 +14,15 @@ export const metadata: Metadata = {
   title: "Ecom Checklist - Free E-commerce Store Audit",
   description: "Get a comprehensive audit of your e-commerce store. Find hidden issues hurting your sales and get actionable fixes in minutes.",
   keywords: ["e-commerce", "store audit", "conversion optimization", "SEO", "checklist"],
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  manifest: "/site.webmanifest",
   openGraph: {
     title: "Ecom Checklist - Free E-commerce Store Audit",
     description: "Find hidden issues hurting your sales. Get actionable fixes in minutes.",

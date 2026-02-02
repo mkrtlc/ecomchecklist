@@ -187,21 +187,21 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mx-auto max-w-5xl grid gap-10 md:gap-12">
-            {/* Row 1: Copy + form */}
-            <div className="text-center max-w-4xl mx-auto">
+          <div className="mx-auto max-w-6xl grid gap-10 md:gap-12 md:grid-cols-2 md:items-start">
+            {/* Left column: Copy + form */}
+            <div className="text-center md:text-left">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 md:mb-6 leading-tight">
                 Your Store is <span className="text-rose-400 line-through decoration-2">Leaking Money</span>
                 <br />
                 <span className="bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">Find Out Where</span>
               </h1>
 
-              <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto md:mx-0">
                 Get a <strong className="text-white">free 50-point audit</strong> of your e-commerce store. Uncover hidden issues killing
                 your conversions — fix them and watch sales grow.
               </p>
 
-              <form onSubmit={handleAnalyze} className="max-w-2xl mx-auto">
+              <form onSubmit={handleAnalyze} className="max-w-2xl mx-auto md:mx-0">
                 <div className="bg-slate-800/50 backdrop-blur-xl p-3 md:p-4 rounded-2xl shadow-2xl border border-slate-700/50">
                   <div className="flex flex-col gap-3">
                     <div className="relative">
@@ -290,8 +290,8 @@ export default function Home() {
               </form>
             </div>
 
-            {/* Row 2: Video */}
-            <div className="mx-auto w-full max-w-2xl">
+            {/* Right column: Video */}
+            <div className="mx-auto w-full max-w-2xl md:mx-0 md:max-w-none md:sticky md:top-24">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-700/50 bg-slate-900/50 ring-1 ring-white/10">
                 <video
                   autoPlay
