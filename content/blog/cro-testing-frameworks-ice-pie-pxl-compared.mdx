@@ -1,0 +1,182 @@
+---
+title: "CRO Testing Frameworks: ICE, PIE, and PXL Compared (With a Hybrid You Can Steal)"
+excerpt: "ICE, PIE, and PXL are the three most-used CRO testing frameworks. Here's how they work, where each breaks down, and a hybrid template you can steal."
+date: "2026-05-25"
+tags: ["cro", "experimentation", "analytics", "ux", "growth"]
+metaTitle: "CRO Testing Frameworks: ICE, PIE, and PXL Compared"
+metaDescription: "A practical comparison of CRO testing frameworks: ICE, PIE, and PXL for e-commerce teams, with a worked example and a hybrid scoring template you can use today."
+---
+
+Your backlog is not a prioritization system. It is a list of things people wanted to test.
+
+Most CRO teams treat test prioritization as a gut call: whoever argues loudest, or whoever carries the most organizational weight, determines what ships next. The result is a queue of cosmetic homepage tweaks with the highest-paid person's fingerprints all over it, while checkout abandonment sits at 70%.
+
+The three most widely used CRO testing frameworks are ICE, PIE, and PXL. Each encodes a different theory about what makes a test worth running. This post compares them directly, walks through a worked example on a real Shopify hypothesis, and gives you a hybrid scoring template you can use starting this sprint. For the broader CRO operating system these frameworks slot into, see [How to Build an Experimentation System](/blog/cro-in-2026-build-an-experimentation-system-not-ideas).
+
+## Why your backlog order determines your win rate
+
+CXL analyzed 28,304 experiments across in-house and agency CRO teams. The average in-house team gets a statistically significant positive result in about 1 in 7.63 tests: around 13.1%. If you run 12 tests per quarter, roughly 1 to 2 will move the needle. Which 12 you pick determines everything.
+
+A prioritization framework does three things:
+
+1. It removes political noise from the queue. A scored hypothesis beats a loudly-argued one.
+2. It surfaces evidence gaps. If you cannot score a hypothesis, you probably do not have the evidence to support it yet.
+3. It creates an audit trail. When you review the backlog in six months, you can see why each idea was prioritized, not just that it was.
+
+The failure mode is not picking the wrong framework. It is using a framework inconsistently or gaming it. All three frameworks below can be gamed. The hybrid at the end of this post reduces that risk.
+
+## ICE: fast and multiplied, but optimism-prone
+
+ICE was created by Sean Ellis, who popularized growth hacking through GrowthHackers.com. It uses three dimensions, multiplied together:
+
+**ICE Score = Impact × Confidence × Ease**
+
+Each dimension is scored 1-10. Because the formula multiplies rather than averages, the range runs from 1 to 1,000. A test scored 8/8/8 = 512. A test scored 9/5/4 = 180. The multiplication amplifies differences: low Ease or low Confidence tanks a hypothesis quickly.
+
+| Dimension | What it asks | Where teams go wrong |
+|---|---|---|
+| Impact (1-10) | How much will this move your primary metric? | Scores cluster at 7-8; no one admits their idea is low-impact |
+| Confidence (1-10) | How much evidence backs the hypothesis? | Confused with optimism: being confident is not the same as having data |
+| Ease (1-10) | How fast and cheaply can you ship this? | Dev friction and organizational friction both count |
+
+The Confidence vs. Ease distinction trips up most teams. Ease is about implementation cost: how hard is it to build? Confidence is about evidence quality: what research supports the hypothesis? You can have a test that is easy to implement (Ease 9) but has no supporting data (Confidence 3). ICE surfaces that difference if you let it.
+
+A practical rule that helps: require an explicit evidence citation for any Confidence score above 5. "What specific data gives this a 7?" turns ICE from a gut-scoring session into a research audit.
+
+**Best for:** Teams that need a quick, shared scoring language. ICE works well in early-stage CRO programs or in sprint planning when you have 10 minutes to sort a backlog.
+
+**Breaks down when:** Every idea lands at 7/8/7 = 392. When scores cluster, you have returned to gut-feel sorting. ICE works only when your team defines anchors: what does a true 10 Impact look like in your funnel? What does a true 1 Ease look like (a test requiring a full page rebuild and months of engineering)?
+
+## PIE: traffic-weighted, but evidence-blind
+
+PIE was developed by Chris Goward at WiderFunnel and formalized in his 2012 book "You Should Test That!" It was designed specifically for CRO, where the bottleneck is often knowing which page in the funnel deserves attention next.
+
+**PIE Score = (Potential + Importance + Ease) / 3**
+
+Averaged rather than multiplied. Output is a 1-10 score. All three dimensions are weighted equally.
+
+| Dimension | What it asks | Where teams go wrong |
+|---|---|---|
+| Potential (1-10) | How much improvement headroom exists on this page? | Conflated with traffic volume; a high-bounce page scores high regardless of whether the cause is fixable by testing |
+| Importance (1-10) | How much revenue or traffic flows through this page? | High-traffic pages always win; checkout scores 9 by default |
+| Ease (1-10) | How hard is implementation? | Same as ICE Ease: technical plus organizational friction |
+
+PIE's key insight is Importance: a 1% improvement on your highest-traffic funnel page is worth far more than the same improvement on a peripheral one. If your checkout converts at 55% and your PDP converts at 12%, PIE will direct resources toward the PDP, which has the larger performance gap (Potential) and similar funnel Importance.
+
+The blind spot: PIE has no evidence requirement. A page you have never studied with heatmaps or session recordings can score identically to a page you have analyzed for three weeks. PIE tells you where to focus. It does not confirm you have a valid hypothesis to test there.
+
+**Best for:** Teams with many pages to prioritize and limited traffic-per-page data. PIE is most useful at the "where should we focus?" stage, before hypotheses are written.
+
+**Breaks down when:** Every run ends at the checkout, regardless of optimization headroom. Checkout pages score 9/9/5 = 7.7 by default. This creates a systematic pull toward checkout testing even when that step is already tight and the real friction lives on the PDP or the category page.
+
+## PXL: the most objective, but evidence-dependent
+
+PXL was created by Peep Laja and the CXL team as a direct response to the subjectivity problems of ICE and PIE. It replaces 1-10 scales with specific yes/no questions. The rationale: teams can debate whether something is a 6 or 7 on Impact, but they cannot debate whether a change appears above the fold.
+
+**PXL Score = sum of weighted yes/no answers (max ~12 points)**
+
+| Question | Points if Yes |
+|---|---|
+| Is the change above the fold? | 1 |
+| Is the change noticeable within 5 seconds? | 2 |
+| Is the change adding or removing an element (not just modifying one)? | 2 |
+| Is it designed to increase user motivation? | 1 |
+| Is it running on a high-traffic page? | 1 |
+| Is it based on user testing or session recording insights? | 1 |
+| Is it based on qualitative feedback (surveys, interviews)? | 1 |
+| Is it supported by analytics data? | 1 |
+| Is it supported by heatmaps or eye-tracking? | 1 |
+| Is it easy to implement? | 1 |
+
+Questions 2 and 3 carry double weight because visible, structural changes correlate most strongly with measurable behavior shifts. Questions 6 through 9 reward evidence-backed hypotheses: a test grounded in user research, surveys, analytics, AND heatmaps can score 4 evidence points. A gut-feel idea scores 0 on those four questions automatically.
+
+**Best for:** Teams with existing research artifacts: session recordings, on-site surveys, heatmaps, and GA4 funnel segmentation. PXL is the highest-signal framework when you have evidence, and the hardest to game in a team meeting because every point is a checkable fact.
+
+**Breaks down when:** You are early in a CRO program with little research infrastructure. A hypothesis generated before you have any heatmaps or session recordings scores near zero on the evidence questions, even if the reasoning is sound. PXL also underweights copy experiments: a carefully-crafted headline rewrite is hard to notice within 5 seconds and does not add or remove an element, so it can score only 3-4 despite having strong qualitative backing.
+
+## CRO testing frameworks compared: which to use when
+
+| | ICE | PIE | PXL |
+|---|---|---|---|
+| Formula | Impact × Confidence × Ease | (Potential + Importance + Ease) / 3 | Sum of weighted yes/no |
+| Score range | 1-1,000 | 1-10 | 0-12 |
+| Created by | Sean Ellis (GrowthHackers) | Chris Goward (WiderFunnel) | Peep Laja (CXL) |
+| Evidence required? | No | No | Yes |
+| Traffic weighting? | No | Yes (Importance) | Partial (one question) |
+| Primary failure mode | Confidence inflation | Checkout tunnel vision | Evidence-poor teams score everything low |
+| Best use case | Fast backlog triage | Page or funnel stage selection | Hypothesis validation |
+| Tool support | AB Tasty (native), VWO (hybrid) | Optimizely (PILE variant) | CXL spreadsheet template |
+
+AB Tasty has native ICE scoring built into its Ideas Backlog module. VWO uses a three-dimension model that closely mirrors ICE. Optimizely's Program Management tool uses its own four-criteria variant called PILE (Potential, Impact, Level of Effort, Love). GrowthBook and Statsig do not include prioritization scoring: both are execution-layer platforms where hypothesis management is handled externally.
+
+## Worked example: a sticky add-to-cart bar on mobile PDPs
+
+**Hypothesis:** Add a persistent sticky add-to-cart bar that appears when a mobile user scrolls past the primary CTA on a Shopify product page.
+
+**Supporting evidence:** Session recordings show mobile visitors scrolling past the static ATC button without clicking. GA4 funnel data shows mobile PDP-to-cart conversion 40% below desktop. Published results from sticky ATC tests on Shopify stores range from 8-15% conversion lift. GrowthRock documented 11.8% increase in ATC clicks at 99% statistical significance on a supplement store.
+
+**ICE scoring:**
+
+- Impact: 8 (documented lift range, high-volume funnel event)
+- Confidence: 8 (session recordings, GA4 segmentation, published case studies)
+- Ease: 7 (available as a Shopify app or a few hours of theme editing)
+- Score: 8 × 8 × 7 = **448**
+
+**PIE scoring:**
+
+- Potential: 8 (mobile PDP converts 40% below desktop, large gap)
+- Importance: 9 (PDP is the last step before the cart; every mobile visitor is high-intent)
+- Ease: 7
+- Score: (8 + 9 + 7) / 3 = **8.0**
+
+**PXL scoring:**
+
+| Question | Answer | Points |
+|---|---|---|
+| Above the fold? | No (appears on scroll) | 0 |
+| Noticeable within 5 seconds? | Yes | 2 |
+| Adding or removing an element? | Yes (new UI component) | 2 |
+| Increases user motivation? | Partially (reduces friction) | 1 |
+| High-traffic page? | Yes | 1 |
+| Session recording insight? | Yes | 1 |
+| Qualitative feedback? | Yes (on-site survey) | 1 |
+| Analytics data? | Yes (GA4 mobile funnel) | 1 |
+| Heatmap support? | Yes | 1 |
+| Easy to implement? | Yes | 1 |
+| **Total** | | **11/12** |
+
+All three frameworks agree: run this test. When ICE, PIE, and PXL converge, you have strong justification to move the hypothesis to the top of the queue.
+
+Divergence is where the frameworks become more useful. A test that scores 500 on ICE but only 4/12 on PXL signals that the team is optimistic without evidence. PXL catches what ICE misses. A test that PIE scores 8.0 but that has never been studied with recordings or analytics will score poorly on PXL, which is a prompt to research before running.
+
+## A hybrid scoring template you can steal
+
+No single framework is complete. ICE is fast but subjective. PIE is traffic-aware but evidence-blind. PXL is objective but requires research infrastructure. The most practical approach runs the three in sequence.
+
+**Step 1: Use PIE to select the page or funnel stage.**
+Before scoring individual hypotheses, use PIE to decide where your next testing cycle should focus. Both Importance and Potential above 6 is your threshold to proceed. PIE answers "where should we look?" not "what should we build?"
+
+**Step 2: Score hypotheses with PXL.**
+Once you have focused on a page, run your specific hypotheses through PXL. Any hypothesis scoring below 5/12 is under-researched. Move it to a "needs evidence" column before it touches the active queue. Your [store audit process](/blog/ecommerce-audit-playbook-from-symptoms-to-root-causes) is the best way to fill those gaps: heatmaps, funnel segmentation, and on-site surveys convert directly into PXL evidence points.
+
+**Step 3: Break ties with ICE.**
+When two PXL-scored hypotheses fall within 1-2 points of each other, use ICE as the tiebreaker. At this stage ICE is a tiebreaker, not the primary sorter, which limits the damage from Confidence inflation.
+
+### Hybrid scoring checklist
+
+Before moving a hypothesis to the active queue:
+
+- [ ] Score the target page with PIE: both Importance and Potential above 6 to proceed
+- [ ] Score the hypothesis with PXL: minimum 5/12 to enter the active queue
+- [ ] Attach an evidence citation for every PXL evidence question answered "yes": the session recording, survey result, or GA4 segment
+- [ ] If two hypotheses are within 1 PXL point, use ICE as a tiebreaker
+- [ ] Reserve 20% of test slots for structural changes regardless of score (otherwise Ease dominates the queue and you only ever run easy tests)
+- [ ] Document score and evidence links in your test repository so you can audit prioritization decisions at quarter-end
+
+CXL's analysis of 28,304 experiments found that agencies using systematic, evidence-backed prioritization outperform in-house teams on statistically significant win rate by 2-3 percentage points. Over a full year of testing, that compounds into a substantially larger learning advantage.
+
+---
+
+Start with the framework that matches where your team is right now. No research infrastructure yet: ICE keeps sprints moving. Enough data to know which pages matter: layer in PIE. Heatmaps, recordings, and surveys in place: add PXL. The hybrid above is the destination, not the starting point.
+
+Run the [free store audit checklist](/) to identify your highest-friction areas before you score your first hypothesis. It gives you a prioritized starting point and converts directly into PXL evidence points.
