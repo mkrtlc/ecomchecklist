@@ -1,0 +1,220 @@
+---
+title: "The 30-Minute Ecommerce Conversion Audit: A Repeatable Triage Playbook"
+excerpt: "A time-boxed ecommerce conversion audit you can run monthly: three focused blocks, eight diagnostic questions, and a prioritized fix list in 30 minutes."
+date: "2026-06-08"
+tags: ["audit", "cro", "analytics", "ga4", "operations"]
+metaTitle: "30-Minute Ecommerce Conversion Audit (Triage Playbook)"
+metaDescription: "Run a repeatable ecommerce conversion audit in 30 minutes: GA4 funnel triage, mobile page checks, speed scan, and ICE prioritization to find your biggest leak."
+---
+
+Most ecommerce conversion audits die in slide decks. They take four hours to run, produce 40 recommendations, and generate a prioritization argument that outlasts the audit itself. Nothing ships.
+
+The 30-minute audit is a different tool. It is not a substitute for a comprehensive deep-dive (for that, the [90-minute audit playbook](/blog/ecommerce-audit-playbook-from-symptoms-to-root-causes) covers root cause analysis, section-by-section checklists, and 30-day planning templates). It is a monthly triage: the fastest way to find the one funnel zone that matters most right now and give your team three specific actions to take this sprint.
+
+Run it monthly. It compounds.
+
+---
+
+## Triage, not therapy: the core principle
+
+Triage medicine does not diagnose everything. It answers one question: what needs the most urgent attention?
+
+Your 30-minute audit answers the same question for your funnel. Where is the largest drop? Why is it happening at the surface level? What is the fastest fix you can ship this week?
+
+The output is concrete: one primary leak zone, two to three quick wins, and a prioritized sprint card. Three blocks. Eight questions. Thirty minutes.
+
+---
+
+## Before you start: PIE your pages (3 minutes)
+
+Spend three minutes deciding where to look before opening GA4. Auditing the wrong page wastes the whole session.
+
+The PIE framework gives you a fast page-level starting point. For each major funnel page (PDP, cart, checkout), score three dimensions:
+
+- **Potential**: how much room for improvement exists here? (1-10)
+- **Importance**: how much traffic and revenue runs through this page? (1-10)
+- **Ease**: how difficult is a change here? (1-10)
+
+Average the three scores. Start your audit on the highest-PIE page.
+
+If you already know mobile checkout is the bottleneck, skip PIE and go straight there. PIE is for when the primary leak is not obvious.
+
+---
+
+## Block 1: Data triage in GA4 (10 minutes)
+
+Open GA4. Run these three checks in order. Note each finding and move on. Do not follow rabbit holes.
+
+### Check 1: Where is the largest funnel drop?
+
+Go to Explore > Funnel Exploration. Build a four-step funnel:
+
+- `view_item`
+- `add_to_cart`
+- `begin_checkout`
+- `purchase`
+
+The step with the largest percentage drop is your primary leak zone. For context: around 50-60% of shoppers who add to cart never reach checkout step 1, and the all-device cart abandonment average sits at 70.22% across 50 studies (Baymard, 2026). Your numbers will differ by category and traffic mix, but any single step losing more than 70% of users from the previous step deserves immediate focus.
+
+Segment by mobile vs. desktop right away. Mobile drives 73-78% of ecommerce traffic but converts at roughly 1.8-2.5% vs. 3.2-3.9% on desktop (Skailama, 2026). If the mobile drop at a given step is materially worse, the fix is likely UX or speed, not offer architecture.
+
+### Check 2: Revenue per visitor by channel
+
+In Reports > Acquisition > Traffic Acquisition, compare Revenue per Session across your top channels.
+
+If paid traffic RPV is running below organic RPV by a meaningful margin, the landing page-to-offer match is broken. The funnel is not the root problem; the entry point is. That finding changes what you prioritize in Block 2.
+
+### Check 3: Products with high views, low add-to-cart
+
+Go to Reports > Monetization > Ecommerce purchases. Sort by "Views" descending. Flag any product in your top 10 by views with an add-to-cart rate below your store average. The industry benchmark is 6-7.5% across categories (Dynamic Yield XP2 benchmarks, 2026).
+
+These are your PDP clarity problems: traffic is arriving but not converting at the product level.
+
+**Block 1 output:** one primary leak zone (funnel step), a device flag (mobile or both), and up to two products flagged for PDP friction.
+
+---
+
+## Block 2: Page-level heuristic scan (12 minutes)
+
+Take your phone. Open your store in mobile Chrome, incognito mode, on WiFi.
+
+### Check 4: PDP above-the-fold test
+
+Open your top three revenue-driving PDPs. For each, answer these questions without scrolling:
+
+- [ ] Is the price visible?
+- [ ] Is the primary CTA ("Add to Cart") visible?
+- [ ] Is there at least one trust signal: review count, delivery estimate, or returns summary?
+- [ ] Is the variant selector clear with a visible active state?
+
+If any answer is no, you have measurable PDP friction. The gap between "user arrives" and "user understands what they are buying and how to buy it" directly suppresses add-to-cart rate. This check takes 90 seconds per PDP.
+
+### Check 5: Cart friction scan
+
+Open the cart without touching anything. Note:
+
+- Is the full order summary (items, subtotal, shipping estimate) visible alongside the checkout CTA?
+- Is the checkout button above the fold?
+- Does a shipping cost appear, or does "Calculated at checkout" stand in its place?
+
+The "Calculated at checkout" pattern is a repeatable conversion leak. Surprise fees are the single largest checkout abandonment driver: 48% of shoppers who abandon cite unexpected costs as the reason (Baymard, 2026). Even a range ("Ships free over $50, otherwise from $6.99") reduces hesitation at that step.
+
+### Check 6: Checkout form field count
+
+Walk through your checkout on mobile. Count the visible form fields.
+
+The industry average is 14.88 fields. The functional optimum is 6-8, based on Baymard research into which fields are strictly required. If you are above 10, you have actionable friction. Check specifically:
+
+- [ ] Is "billing same as shipping" pre-checked?
+- [ ] Are express checkout options (Shop Pay, Apple Pay, Google Pay) visible at the top of checkout, not buried?
+- [ ] Is guest checkout the default path, not account creation?
+
+A checkout optimized to the 6-8 field range, combined with digital wallet options, can unlock a potential 35.26% improvement in checkout conversion (Baymard, cited in growth-engines.com). That is not a small margin.
+
+### Check 7: Clarity rage click scan
+
+Open Microsoft Clarity (free). Go to Dashboard > Smart Events > Rage Clicks. Check whether your cart CTA, checkout button, or variant selectors appear in the top rage-click list.
+
+Rage clicks signal a broken or slow-responding interaction. A variant selector with a 400ms response lag reads as "broken" on mobile and drives exits before the add-to-cart even fires. Dead clicks on non-linked product images (where users expect zoom) are equally high-signal and easy to find in the Dead Clicks report.
+
+If you do not have Clarity installed, open Hotjar heatmaps for your top PDP. Check scroll depth on mobile: if most users do not reach the CTA, your above-the-fold check was incomplete.
+
+**Block 2 output:** up to three specific UX friction points, each with page and location noted.
+
+---
+
+## Block 3: Speed and trust check (8 minutes)
+
+### Check 8: Mobile LCP and INP on your top PDP
+
+Go to [PageSpeed Insights](https://pagespeed.web.dev/) and run your top-traffic PDP on the Mobile tab. Two metrics to record:
+
+- **LCP (Largest Contentful Paint):** Good = under 2.5 seconds. Every 100ms of additional latency costs approximately 1% in revenue (Amazon internal research). A 0.1-second improvement in load time correlates to an 8.4% uplift in retail conversions (Google and Deloitte study).
+- **INP (Interaction to Next Paint):** Good = under 200ms. INP measures how quickly the page responds when a user taps "Add to Cart" or selects a size variant. As of 2026, 43% of sites still fail the 200ms threshold (NitroPack Core Web Vitals report). An INP above 200ms means the moment of purchase intent is hitting measurable friction.
+
+An LCP problem is usually a large uncompressed hero image or a render-blocking font. An INP problem is usually a heavy JavaScript bundle or a theme variant-switch handler triggered by a third-party app.
+
+**Block 3 output:** pass or fail on LCP and INP, with the likely cause noted.
+
+---
+
+## The 8 ecommerce conversion audit questions
+
+Consolidate your three blocks into this triage checklist. A "no" or "fail" is an action item.
+
+| # | Diagnostic question | Tool |
+|---|---|---|
+| 1 | Where is the largest funnel drop, and is it worse on mobile? | GA4 Funnel Exploration |
+| 2 | Is paid traffic RPV below organic RPV? | GA4 Acquisition |
+| 3 | Are any high-view products below average add-to-cart rate? | GA4 Ecommerce purchases |
+| 4 | Are price, CTA, and trust signals above the fold on mobile PDPs? | Phone, incognito |
+| 5 | Is shipping cost visible in the cart before the checkout CTA? | Phone, incognito |
+| 6 | Does checkout have more than 8-10 fields or a buried guest option? | Phone, incognito |
+| 7 | Are there rage clicks or dead clicks on CTAs or variant selectors? | Clarity or Hotjar |
+| 8 | Does your top PDP pass LCP (under 2.5s) and INP (under 200ms) on mobile? | PageSpeed Insights |
+
+---
+
+## Prioritize with ICE before writing a single ticket
+
+After 30 minutes, you will have 3-8 findings. Score each with the ICE framework before routing anything to your backlog.
+
+For each finding:
+
+- **Impact** (1-10): expected CVR or RPV lift if fixed
+- **Confidence** (1-10): how certain are you this is the cause? (data-backed vs. a hunch)
+- **Ease** (1-10): how quickly can it ship? (1 = weeks of dev work, 10 = a 15-minute config change)
+
+Average = ICE score. Sort descending. Ship the top three in the next sprint.
+
+Here is how a typical post-audit ICE ranking looks:
+
+| Finding | Impact | Confidence | Ease | ICE Score |
+|---|---|---|---|---|
+| "Calculated at checkout" hiding shipping cost | 8 | 9 | 9 | 8.7 |
+| LCP above 4 seconds on PDP | 7 | 9 | 7 | 7.7 |
+| 14 checkout fields with guest option buried | 9 | 8 | 5 | 7.3 |
+| CTA below fold on mobile PDP | 7 | 7 | 6 | 6.7 |
+| Rage clicks on variant selector | 6 | 6 | 7 | 6.3 |
+
+The two highest-ICE items in this example are also the cheapest to fix. That is not unusual. The most recurring leaks in ecommerce are not hard technical problems: they are configuration defaults that no one has challenged in 18 months.
+
+For a detailed comparison of ICE vs. PIE vs. PXL, including when each framework fits and a worked Shopify PDP example, the [CRO testing frameworks post](/blog/cro-testing-frameworks-ice-pie-pxl-compared) covers the tradeoffs.
+
+---
+
+## Turn findings into a sprint card (the step most teams skip)
+
+An audit that produces a list of observations with no owner, no ticket, and no sprint slot is a wasted 30 minutes.
+
+For each of your top-3 ICE findings, write one sprint card before you close the tab:
+
+- **Observation**: what you saw (one sentence, screenshot if relevant)
+- **Evidence**: which check surfaced it (GA4 funnel step, Clarity rage click, PageSpeed score)
+- **Fix**: what to change, specifically
+- **Signal**: which metric moves if this is the right fix
+- **Owner**: who builds it
+
+Five fields. Ten minutes. That is the difference between an audit and a plan.
+
+For teams that want to go deeper on root cause analysis after the triage, the [90-minute audit playbook](/blog/ecommerce-audit-playbook-from-symptoms-to-root-causes) has the full section-by-section diagnosis process and a 30-day execution template.
+
+---
+
+## When to run it
+
+| Trigger | Timing |
+|---|---|
+| Routine triage | Monthly |
+| After a new theme or major app launch | Same day as launch |
+| After a paid traffic surge | Within 48 hours |
+| After an unexplained CVR drop | Immediately |
+| Before a seasonal sale | Two weeks prior |
+
+The best time to find a leak is before it compounds over a quarter of traffic. A monthly 30-minute cadence means you are not discovering a checkout bug in your Q4 review.
+
+Once you have a recurring audit habit and a validated finding backlog, the logical next step is building a structured testing operation around it. The [CRO experimentation system playbook](/blog/cro-in-2026-build-an-experimentation-system-not-ideas) covers how to run that compounding cycle from hypothesis to rollout.
+
+---
+
+Run the free store audit checklist on your own store to find your biggest conversion leak: [Get the checklist](/)
