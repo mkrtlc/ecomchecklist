@@ -1,0 +1,206 @@
+---
+title: "Checkout Optimization for E-commerce: The 7-Step Audit That Recovers Revenue"
+excerpt: "The 7-step checkout optimization audit that most e-commerce teams skip: cost transparency, express payments, form fields, mobile keyboard UX, and Shopify Extensibility compliance."
+date: "2026-06-29"
+tags: ["audit", "cro", "shopify", "ux", "analytics", "operations"]
+metaTitle: "Checkout Optimization: 7-Step Audit for E-commerce"
+metaDescription: "A 7-step checkout optimization audit for e-commerce: cost transparency, express payments, form fields, mobile UX, Shopify compliance, and abandonment recovery."
+---
+
+Most e-commerce teams treat checkout optimization as a platform question. Shopify handles the infrastructure. What breaks conversion is the configuration nobody checked: fees that appear for the first time at step three of four, express payment buttons absent for most mobile visitors, address fields that trigger the letters keyboard on an iPhone instead of the numeric one.
+
+Checkout is where 70.22% of shoppers leave, based on Baymard Institute's aggregate of 50 studies. Baymard puts the recoverable revenue at $260 billion globally and estimates the average site can improve checkout conversion by 35.26% through UX changes alone. Almost none of that requires a rebuild. It requires finding the leaks in the right order.
+
+This audit is seven steps. Each addresses a distinct failure zone. Run them in sequence: step one tells you where to weight the rest.
+
+---
+
+## Why checkout optimization rarely gets the attention it deserves
+
+The "Shopify handles it" assumption is the most expensive idea in e-commerce. The platform handles payment processing and security. It does not decide when your shipping fee appears, whether guest checkout is the primary path, or whether express payment buttons surface before the address form.
+
+Baymard benchmarked 327 top-grossing US and EU sites on checkout design quality. Only 2% earned a "good" rating. Zero reached state-of-the-art. The gap between the average store's checkout and the optimum is a configuration problem, not a technology one.
+
+The lens we use for this audit is RFD: Revenue at risk, Friction source, Diagnostic signal. For each step, identify how much is at stake, what friction is causing the drop, and which tool confirms whether you have fixed it. That framing keeps the output from being a list of opinions: it becomes a ranked list of confirmed leaks.
+
+Before running this, confirm your funnel data is clean. If purchase events are duplicating or `begin_checkout` is misfiring, fix tracking first. The [90-minute audit playbook](/blog/ecommerce-audit-playbook-from-symptoms-to-root-causes) walks through data integrity as step one. If you need a fast GA4 funnel setup, the [30-minute triage](/blog/30-minute-ecommerce-conversion-audit-playbook) covers it in the first ten minutes.
+
+---
+
+## Step 1: Locate the actual drop in GA4
+
+Before touching anything, confirm where checkout breaks. "Checkout is leaking" is a symptom. Knowing whether the drop happens at `begin_checkout`, `add_shipping_info`, or `add_payment_info` tells you which of the next six steps to prioritize.
+
+In GA4, go to Explore and build a Funnel Exploration with four events:
+
+- `begin_checkout`
+- `add_shipping_info`
+- `add_payment_info`
+- `purchase`
+
+Segment immediately by mobile versus desktop. Mobile checkout conversion runs at roughly 2% industry-wide; desktop runs at roughly 4%. If your mobile rate is below 2%, you have structural friction, not an offer problem.
+
+Add a secondary segment: new versus returning users. Returning users abandoning at `add_payment_info` often signal a payment method gap. New users dropping at `begin_checkout` usually have a cost transparency problem.
+
+Record the drop at each step. The highest-drop step is your primary target. Keep that number in front of you for the rest of this audit.
+
+---
+
+## Step 2: The cost transparency audit
+
+Unexpected costs are the single highest-volume reason shoppers leave at checkout. Baymard found 39% of abandoners cite "extra costs too high" as their primary reason. A separate analysis puts shipping-specific abandonment at 48% of checkout exits. The fix is rarely free shipping: it is earlier disclosure.
+
+### Check 1: When does shipping cost appear first?
+
+Walk your checkout on mobile as a new visitor. Note the exact step where a shipping cost number becomes visible for the first time. If it appears first on the payment step, that is a direct revenue leak.
+
+The fix is showing an estimate in the cart before checkout begins. Shopify's native shipping rates, ShipperHQ, and Intuitive Shipping all support cart-page rate calculation. If flat-rate shipping is your model, display it on the product page. A range ("Shipping from $5.99, free over $75") is better than silence.
+
+### Check 2: Is the free shipping threshold communicated?
+
+If you offer free shipping above a spend threshold, the cart should frame it as progress: "Add $14 to unlock free shipping." A threshold that exists but is not surfaced loses both conversion and AOV at the same moment.
+
+### Check 3: Do any fees appear without prior context?
+
+Taxes at checkout are expected. A service fee or elevated shipping rate appearing for the first time at the payment step is not. Audit every line item on your payment page and confirm each one is either communicated earlier or standard for your category.
+
+---
+
+## Step 3: Express checkout and payment method coverage
+
+Shop Pay converts up to 50% better than guest checkout, according to a BCG study covering one billion data points across 220,000 Shopify sites. That same study found displaying Shop Pay as an option lifts lower-funnel conversion by 5% even when buyers complete the purchase through a different method. More than 100 million shoppers are enrolled in Shop Pay's one-click checkout, which means zero form fields on your store for that segment.
+
+### Express checkout placement
+
+Shop Pay, Apple Pay, and Google Pay buttons should appear at the top of checkout, before any form fields begin. Shopify's native checkout surfaces these automatically through your Shopify Payments settings. If your checkout shows them only at the payment step, that is a configuration gap.
+
+### Payment method coverage by market
+
+| Market | Must-have methods |
+|---|---|
+| United States | Shop Pay, Apple Pay, Google Pay, PayPal, Klarna or Afterpay |
+| United Kingdom | Shop Pay, Apple Pay, Google Pay, PayPal, Klarna |
+| Germany | PayPal, cards, SOFORT, Klarna |
+| Netherlands | iDEAL, cards, PayPal |
+| Belgium | Bancontact, cards, PayPal |
+
+BNPL is not optional for US stores targeting buyers under 35. Klarna, Afterpay, and Affirm together have 91.5 million US users. Baymard found 10% of abandoners cite insufficient payment options. In Germany and the Netherlands, missing local payment methods shows up as an inexplicably low conversion rate from those regions. We see this pattern repeatedly: stores assume their payment setup is fine because it works in their home market.
+
+---
+
+## Step 4: Form field and guest checkout audit
+
+The average US checkout presents 23.48 form elements across 14.88 fields. Baymard's research puts the optimum at 12-14 form elements, or 7-8 fields. Every unnecessary field on mobile adds completion time and raises error probability.
+
+Run this on your mobile device:
+
+- [ ] Guest checkout is the first visible option, not secondary to "Create an account"
+- [ ] Billing address defaults to "same as shipping"
+- [ ] Address autocomplete is working (test with a partial address entry)
+- [ ] Phone number field appears only if your fulfillment process actually uses it
+- [ ] No field requires information your operations team does not need
+- [ ] Express checkout buttons appear before the address form
+
+On guest checkout: 26% of Baymard's abandoners cite forced account creation as their reason for leaving. Guest checkout is the primary path. Account creation belongs post-purchase, after the transaction confirms, when the ask costs the buyer nothing.
+
+On address autocomplete: Google's Places API (mandatory for new implementations since March 2025) reduces checkout completion time by 20-30% and address errors by 60%. Shopify's native checkout has this built in. If you are running a headless stack or custom checkout page, it requires explicit integration.
+
+---
+
+## Step 5: Mobile keyboard and error handling
+
+Mobile checkout converts at roughly half the rate of desktop. Part of that gap is intent-based. A meaningful portion is the checkout presenting the wrong keyboard on a phone, generating errors that are not attributed to a specific field, and sometimes clearing form data when a submission fails.
+
+### Keyboard audit
+
+Walk checkout on an iPhone or Android. For each field, check whether the correct keyboard appears:
+
+| Field | Correct trigger | What breaks it |
+|---|---|---|
+| Email | `type="email"` | Generic text keyboard |
+| Phone | `type="tel"` | Generic text keyboard |
+| Postal code | `inputmode="numeric"` | Letters keyboard |
+| Card number | `inputmode="numeric"` | Letters keyboard |
+| CVV | `inputmode="numeric"` | Letters keyboard |
+
+Shopify's native checkout handles these correctly. This check matters most for headless implementations, custom checkout pages, or Checkout UI Extensions that add custom fields. Wrong keyboard types increase field error rates by 30-40% and add 3-5 seconds per field on mobile.
+
+### Error handling audit
+
+Trigger a checkout error on purpose. Submit with an invalid email. Then check:
+
+- Does the page scroll to the error, or does it appear outside the user's viewport?
+- Does the message name the specific field ("Email address is invalid") or give a generic "Something went wrong"?
+- Is all other entered data preserved after the error fires?
+
+Real-time validation on blur (triggered when a user leaves a field, not while typing) improves form completion by 11-13% on forms with six or more fields and reduces errors by 22%. Validation that fires while the user is still typing cuts completion by up to 22% in the opposite direction.
+
+---
+
+## Step 6: Shopify Checkout Extensibility compliance
+
+If your store is on Shopify Plus and you have not audited your checkout customizations against the Extensibility migration timeline, this step is overdue.
+
+Confirmed deadlines:
+
+- **January 6, 2025:** Legacy checkout.liquid stopped rendering on Information, Shipping, and Payment pages
+- **August 28, 2025:** Thank You and Order Status pages lost legacy customization support
+- **June 30, 2026:** Shopify Scripts fully removed. Any Ruby Scripts running custom discount logic or shipping rate manipulation will stop working on this date.
+
+Check your setup against this:
+
+- [ ] All checkout customizations run through the Checkout Editor or Checkout UI Extensions, not checkout.liquid
+- [ ] Discount logic previously in Shopify Scripts has been migrated to Shopify Functions
+- [ ] Analytics and conversion pixels are configured through Shopify Pixels, not Additional Scripts
+- [ ] GA4 or Meta event firing in checkout uses the Shopify Pixels framework (GTM in the Extensibility model supports event firing only, not DOM access)
+- [ ] Any upsells or cross-sells within checkout run as Checkout UI Extension apps, not injected JavaScript
+
+If your store is not on Shopify Plus, this step does not apply.
+
+For Plus stores that have completed the migration, the Checkout Editor opens optimization capabilities checkout.liquid never had: conditional display logic, custom trust blocks, and app integrations that run within Shopify's trusted checkout environment. The BCG/Shopify benchmark found Shopify Checkout converts 15.2% better than competitor checkouts on average, up to 36% better in best-case comparisons. The Extensibility framework keeps that performance baseline intact while enabling controlled customization on top of it.
+
+---
+
+## Step 7: Abandonment recovery audit
+
+The audit does not end at checkout completion. A meaningful portion of the 70.22% who leave can be recovered post-session with well-timed flows. Most teams have an abandonment email. Most of those emails arrive too late and link to the homepage.
+
+Check your setup:
+
+- [ ] A checkout abandonment email fires within 60 minutes of the session ending
+- [ ] That first email shows the specific product left in cart, not a generic "you left something"
+- [ ] A second email fires 24 hours later, adding a trust element (review excerpt, returns policy detail) if the first did not convert
+- [ ] SMS abandonment is active for opted-in users (first-touch recovery runs 3-5x higher than email)
+- [ ] Recovery emails link to a pre-populated cart, not to the homepage
+
+Klaviyo and Omnisend both offer pre-built checkout abandonment flows with these timing defaults. The most common failure in recovery setups is the first email arriving two-plus hours after the session. Recovery rate drops sharply past the one-hour window: the product is still fresh at 30 minutes; it is a distant memory at four hours.
+
+The [post-purchase email flow playbook](/blog/post-purchase-email-flow-ltv-ecommerce-playbook) covers the post-confirmation sequence. Abandonment recovery is the pre-confirmation mirror of that same system.
+
+---
+
+## The 7-step checkout audit at a glance
+
+| Step | What you are checking | Primary tool | Pass condition |
+|---|---|---|---|
+| 1. Funnel measurement | Where does checkout drop? Is mobile worse? | GA4 Funnel Exploration | Drop identified by step, mobile segmented |
+| 2. Cost transparency | When do fees appear? Is threshold visible? | Mobile checkout walkthrough | Shipping visible before checkout step 2 |
+| 3. Payment coverage | Shop Pay, Apple Pay, local methods present? | Shopify Payments settings | All market-relevant methods active |
+| 4. Form fields | Guest-first, autocomplete working, under 10 fields | Mobile device walkthrough | Guest is default, autocomplete functions |
+| 5. Mobile UX | Correct keyboards, specific error messages, no data loss | Mobile device, error trigger | Field-specific errors, data preserved |
+| 6. Extensibility compliance | No checkout.liquid or Scripts dependencies remaining | Shopify Admin review | All customizations on new framework |
+| 7. Abandonment recovery | First email timing, product shown, cart link | Klaviyo or Omnisend flow review | First email under 60 min, pre-populated cart |
+
+---
+
+## What to fix first
+
+Most checkout ICE rankings surface the same two categories at the top.
+
+Structural leaks (high impact, high confidence, low effort): shipping cost hidden until the payment step, guest checkout buried behind account creation, express payment buttons absent or placed below the address form. These affect every visitor and fix in a single sprint. No A/B test required before shipping them.
+
+Mobile-specific leaks (high impact if mobile is your primary channel, medium confidence without session recordings to confirm): wrong keyboard types, error messages that render outside the viewport, form data clearing on submission failure. Confirm these with Hotjar session recordings or Microsoft Clarity before prioritizing. A rage click on your checkout CTA is the fastest signal that something is broken at that specific interaction.
+
+For the full prioritization methodology, including when ICE, PIE, and PXL each fit best, [the CRO testing frameworks post](/blog/cro-testing-frameworks-ice-pie-pxl-compared) has the comparison and a worked Shopify PDP example you can adapt for checkout.
+
+Run the free store audit checklist on your own store to find your biggest conversion leak before your next traffic peak: [Get the checklist](/)
