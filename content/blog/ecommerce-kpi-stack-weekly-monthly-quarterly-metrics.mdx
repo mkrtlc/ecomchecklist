@@ -1,0 +1,119 @@
+---
+title: "The E-commerce KPI Stack: Which Metrics to Track Weekly, Monthly, and Quarterly"
+excerpt: "Most e-commerce dashboards track 30 metrics at the same cadence. Here is the ecommerce KPI stack: a 3-tier system for what to check weekly, monthly, and quarterly."
+date: "2026-07-13"
+tags: ["strategy", "analytics", "retention", "growth", "measurement"]
+metaTitle: "E-commerce KPI Stack: Weekly, Monthly, Quarterly Metrics"
+metaDescription: "Build an ecommerce KPI stack that matches metric cadence to decision cadence: weekly, monthly, and quarterly tiers with real benchmarks and tools."
+---
+
+Most e-commerce teams have a dashboard problem disguised as a metrics problem. Someone builds a Looker Studio report with 30 tiles: sessions, conversion rate, AOV, LTV, CAC, contribution margin, retention cohorts, channel ROI, all sitting on the same page, refreshed the same way, reviewed at the same weekly meeting. Nobody can tell you which number actually moved the needle last quarter, because everything gets the same amount of attention and none of it gets enough.
+
+The fix is not fewer metrics. It is matching each metric's cadence to the decision it actually supports. A conversion rate that moves 0.3 points in a week is worth a Monday look. A retention cohort curve does not finish telling its story for 60 to 90 days, and checking it weekly just adds noise to a number that needs time to mature. An ecommerce KPI stack is what you get when you stop treating every metric as equally urgent and start organizing them by how fast they actually move.
+
+This post is that stack: three tiers, weekly, monthly, and quarterly, with the specific metrics that belong in each, the benchmarks to judge them against, and the tools that make tracking them practical instead of theoretical.
+
+## The foundational frame: leading indicators move fast, lagging indicators tell the truth
+
+Every metric in your business falls into one of two buckets. Leading indicators move quickly and predict what is coming. Lagging indicators move slowly and confirm what already happened. Conversion rate, revenue per session, and add-to-cart rate are leading: they shift within days and give you an early read on whether this week's traffic and site changes are working. Retention rate, cohort LTV, and channel ROI are lagging: they take weeks or months to resolve, but when they do, they tell you the truth that leading indicators can only hint at.
+
+The mistake most teams make is reviewing both at the same cadence. Checking a lagging metric weekly gives you noise: a retention cohort with three weeks of data looks nothing like its 90-day shape, and reacting to it early means chasing a number that has not finished forming. Checking a leading metric only quarterly means you miss the window to act on a conversion drop while it is still cheap to fix.
+
+The ecommerce KPI stack solves this by assigning each metric a tier based on how fast it moves and how much confidence you need before acting on it:
+
+| Tier | Metrics | Why this cadence | Type |
+|---|---|---|---|
+| Weekly | Conversion rate (CR), revenue per session (RPS), average order value (AOV) | Move within days, cheap to test against | Leading |
+| Monthly | Customer acquisition cost (CAC), lifetime value (LTV), contribution margin | Take 3-4 weeks to stabilize per cohort | Leading to lagging |
+| Quarterly | Retention cohorts, RFM segmentation, channel ROI | Need 60-90 days of data to mean anything | Lagging |
+
+Above all three tiers sits a single number we recommend every team pick as its North Star Metric: usually contribution profit per period, or repeat purchase revenue for retention-driven brands. Every tier below should roll up into whether that one number is moving in the right direction. If a metric cannot be traced back to the North Star, it does not belong on the dashboard.
+
+## Weekly tier: conversion rate, revenue per session, AOV
+
+The weekly tier exists to answer one question: is this week's traffic converting the way we expect? These three metrics are the fastest-moving, cheapest-to-diagnose numbers in the stack.
+
+**Conversion rate (CR).** Segment by device before you look at the blended number. Mobile and desktop CR tell different stories, and a blended average can hide a mobile-specific problem behind a strong desktop week. If you want the diagnostic method for finding exactly where a CR drop is coming from, [our GA4 funnel reports post](/blog/ga4-funnel-reports-that-drive-cro-decisions) walks through funnel, path, and segment overlap explorations built for this.
+
+**Revenue per session (RPS)**, also called RPV or ARPS. RPS is CR times AOV times traffic quality compressed into one number, which makes it a useful single-glance health check: if RPS drops but CR held steady, the problem is AOV or a shift toward lower-value traffic, not the funnel itself. There is no universal "good" RPS since it depends heavily on category and price point, so track it as a trend against your own baseline, not against a published benchmark.
+
+**Average order value (AOV).** Watch AOV alongside CR, never alone. A rising AOV with a falling CR often means you are running a promotion or bundle that lifts basket size for the customers who do convert, while quietly making the page harder to parse for everyone else. The two numbers need to move together or you are trading one problem for another.
+
+### Weekly review checklist
+
+Run this every Monday in under 30 minutes:
+
+1. Pull CR, RPS, and AOV segmented by device, and compare against a 4-week rolling average, not just last week.
+2. Flag any metric that moved more than one standard deviation from that baseline.
+3. If CR moved, open a funnel exploration to locate the step.
+4. If AOV moved without a corresponding CR move, check for an active promotion, bundle, or merchandising change.
+5. Log the week's numbers in your KPI sheet regardless of whether anything moved. A flat week is still a data point.
+
+## Monthly tier: CAC, LTV, and contribution margin
+
+The monthly tier answers a harder question: are we acquiring customers profitably? These metrics need three to four weeks to stabilize because they depend on cohort behavior, not single-session behavior, and checking them weekly means acting on incomplete cohorts.
+
+**Customer acquisition cost (CAC).** Calculate CAC per channel, not just blended. A blended CAC of $35 can hide a paid social channel running at $60 and an email/organic mix pulling the average down. Channel-level CAC is what actually informs budget decisions.
+
+**Lifetime value (LTV).** Measure LTV as contribution margin over a defined window (commonly 12 months), not raw revenue. Revenue-based LTV overstates how much a customer is actually worth once fulfillment, payment processing, and returns are accounted for.
+
+**Contribution margin.** This is the metric most teams get wrong, usually by confusing it with gross margin. Gross margin is revenue minus cost of goods sold. Contribution margin subtracts everything that scales per order on top of that: fulfillment, payment processing fees, shipping, and, at the sharpest level (often called CM3), acquisition spend itself. A brand can run a 65-70% gross margin and a contribution margin closer to 20%, once those per-order costs are included. If your CAC-to-LTV math uses gross margin instead of contribution margin, your ratio is overstating profitability and you will keep funding a channel that is quietly losing money on every order.
+
+The number that ties CAC and LTV together is the LTV:CAC ratio. A commonly cited healthy range is 3:1 to 4:1, measured against contribution-margin LTV over a 12-month cohort window. Below 3:1 usually signals acquisition spend that is outrunning the profit it produces. Meaningfully above 5:1 is not automatically good news either: it often means you are leaving growth on the table by under-investing in acquisition relative to what your unit economics can support.
+
+| Metric | What it measures | Rough healthy range |
+|---|---|---|
+| LTV:CAC ratio | Acquisition efficiency (CM-adjusted LTV over CAC) | 3:1 to 4:1 |
+| Contribution margin | Profit per order after fulfillment, fees, shipping | 20% floor, 30%+ best-in-class for DTC |
+| Gross margin | Revenue minus COGS only | Often 20-40 points higher than contribution margin, category-dependent |
+
+### Monthly review checklist
+
+1. Pull CAC by channel for the trailing 30 days, not blended.
+2. Recalculate LTV using contribution margin, not revenue, for the trailing 12-month cohort.
+3. Compare LTV:CAC against your 3:1 to 4:1 target range.
+4. If contribution margin and gross margin are being reported as the same number anywhere in your stack, fix that reporting error before trusting any ratio built on top of it.
+5. Flag any channel below 2.5:1 for a budget review at the next planning cycle.
+
+## Quarterly tier: retention cohorts, RFM segmentation, channel ROI
+
+The quarterly tier is where the slow-moving truth lives. These metrics need 60 to 90 days minimum before a cohort's shape means anything, and reviewing them weekly just means reacting to noise from a curve that has not finished forming.
+
+**Retention cohorts.** Track repeat purchase rate by acquisition month, segmented by channel and, where relevant, product category. Industry benchmarks put overall repeat customer rate in the 25-30% range, with wide category variance: consumables and replenishable products often run 30-45%, apparel closer to 20-25%, and high-ticket electronics as low as 10-15%. Judge your own cohorts against your category's range, not the blended industry number.
+
+**RFM segmentation.** Recency, frequency, and monetary value together identify which customers deserve premium retention treatment and which need a simpler nudge. A high-recency, high-frequency, high-monetary customer is a different retention problem than a customer who bought once at a high price point and never returned. Reviewing RFM quarterly is enough to catch segment drift without over-reacting to a single slow month.
+
+**Channel ROI.** This is the quarterly rollup of everything the monthly CAC tier flagged. A channel that looked marginal on a 30-day CAC view can look very different once 90 days of retention and repeat-purchase revenue are attributed back to it. Channels that acquire lower-LTV, one-time buyers often look fine on CAC alone and only reveal their real cost once quarterly retention data comes in.
+
+For the retention side of this tier, [our post-purchase email flow playbook](/blog/post-purchase-email-flow-ltv-ecommerce-playbook) covers the operational system for lifting the repeat-purchase numbers this tier tracks. And if a quarterly review surfaces a specific conversion problem worth testing, [our CRO testing frameworks comparison](/blog/cro-testing-frameworks-ice-pie-pxl-compared) covers how to prioritize it against the rest of your backlog.
+
+### Quarterly review checklist
+
+1. Pull retention cohort curves by acquisition month and channel, minimum 90 days of data.
+2. Compare repeat purchase rate against your category's benchmark range, not a blended industry figure.
+3. Refresh RFM segments and flag any segment that shrank or grew more than 15% quarter over quarter.
+4. Recalculate channel ROI using full attribution, including repeat revenue, not just first-order CAC.
+5. Decide which one or two channels get a budget change for the next quarter, based on this data, not gut feel.
+
+## Naming your North Star Metric
+
+A KPI stack without a North Star Metric turns into 15 numbers competing for attention with no tiebreaker. The North Star Metric is the single number your whole stack should roll up toward: usually contribution profit per period for margin-focused brands, or repeat purchase revenue for retention-driven ones.
+
+This maps onto an ecommerce-adapted version of the AARRR framework (acquisition, activation, revenue, retention, referral), reordered so weekly metrics sit at the fast-moving acquisition and revenue stages, monthly metrics sit at the revenue-to-retention transition, and quarterly metrics sit at retention and referral, where the real economics resolve. When a metric cannot be traced back to whether it moves your North Star, cut it from the dashboard. A dashboard with 8-12 tracked metrics, each with a clear owner and a clear tier, gets checked. A dashboard with 30 metrics and no owner gets ignored within a month.
+
+## Common mistakes that break a KPI stack
+
+Even a well-designed tier system fails if these creep in:
+
+- **Vanity metrics with no profit link.** Pageviews, follower counts, and raw session totals feel productive to track but do not trace back to the North Star. If a metric cannot answer "so what should we do differently," drop it.
+- **No metric ownership.** A KPI with nobody accountable for it gets glanced at and ignored. Assign one owner per tier, not one owner for the whole dashboard.
+- **Conflating gross margin with contribution margin.** Covered above, and worth repeating: this single error inflates every downstream CAC and LTV decision built on top of it.
+- **Wrong cadence for the metric type.** Checking retention cohorts weekly or checking conversion rate only quarterly both waste the number. Match the check to how fast the metric actually moves.
+
+## Building the actual dashboard
+
+GA4 remains the base layer for session-level and funnel metrics, and its predictive metrics (purchase probability, churn probability, predicted revenue) are worth layering into the monthly tier once your event volume supports them. For the profitability layer, purpose-built tools go further than a spreadsheet: Triple Whale unifies first-party attribution and profitability into one view for Shopify brands, Lifetimely is built specifically for LTV and cohort retention curves, and Peel Insights adds RFM segmentation and cohort-by-channel breakdowns for stores with enough order volume to justify it. Looker Studio or BigQuery typically sit underneath any of these as the warehouse and visualization layer once your data volume outgrows native dashboards.
+
+Whichever tools you pick, the tier structure matters more than the software. A team checking the right three metrics on the right cadence in a spreadsheet will outperform a team checking 30 metrics in an expensive dashboard with no cadence at all.
+
+Run the free audit checklist on your own store to find which tier is currently missing its owner: [Get the checklist](/).
