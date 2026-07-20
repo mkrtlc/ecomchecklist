@@ -1,0 +1,104 @@
+---
+title: "How to Run a Conversion Hypothesis Workshop With Your E-commerce Team"
+excerpt: "A conversion hypothesis workshop turns funnel data and support tickets into scored, testable hypotheses in 90 minutes, not another folder of untested ideas."
+date: "2026-07-20"
+tags: ["cro", "experimentation", "operations", "analytics", "ux"]
+metaTitle: "Conversion Hypothesis Workshop: A 90-Minute Team Playbook"
+metaDescription: "Run a conversion hypothesis workshop that turns research into scored hypotheses: agenda, roles, evidence checklist, and a facilitation method that beats HiPPO."
+---
+
+Most CRO teams do not have a hypothesis problem. They have a meeting problem, and a conversion hypothesis workshop is the fix for it.
+
+Someone opens a doc, the loudest person in the room proposes three ideas off the top of their head, everyone nods, and the backlog grows by three items that nobody scored, tied to no evidence, owned by no one. Six weeks later half of them are still sitting there because no one remembers why they mattered.
+
+A conversion hypothesis workshop fixes the meeting, not the backlog. It is a structured, recurring session where your team turns research (funnel data, session recordings, support tickets, on-site survey answers) into hypotheses written in a fixed format and scored before anyone leaves the room. Run well, it takes 60 to 90 minutes. Run badly, it is the same brainstorm you already have, just scheduled on a calendar.
+
+## A conversion hypothesis workshop is a production step, not a brainstorm
+
+The mental model that makes this work: the workshop is a manufacturing step in your experimentation pipeline. Evidence goes in. Scored, testable hypotheses come out. Nothing enters the active test queue without going through it.
+
+This matters because of what actually happens in unstructured idea generation. Wolfgang Stroebe and Michael Diehl's research on brainstorming groups found something counterintuitive: individuals working alone and then pooling their ideas consistently out-produce the same number of people brainstorming together in an open room, in both quantity and quality of ideas. Interacting groups feel more productive. The data says otherwise. Waiting for your turn to speak, anchoring on the first idea said out loud, and social pressure not to contradict a colleague all quietly tax the output.
+
+Layer on what Avinash Kaushik named the HiPPO problem (the Highest Paid Person's Opinion) and you get the default failure mode of most prioritization meetings: the senior person speaks first, the room reorganizes around their idea, and dissent goes quiet. Irving Janis, who coined "groupthink" in 1972, found the same dynamic in policy failures: high cohesion plus directive leadership plus insulation from outside challenge produces confident, uncontested, bad decisions. His main prevention tactic, assigning a rotating devil's advocate whose job is to argue against the room's favorite idea, is one of the few groupthink countermeasures with a clear, repeatable mechanic. Build it into your agenda and you get it for free every session.
+
+The workshop format below exists to route around both problems: individual, silent idea generation before group discussion, and a scoring step that happens in the room, live, so status doesn't quietly override evidence.
+
+## Build the evidence packet before anyone opens their mouth
+
+A hypothesis workshop with no evidence packet turns back into a brainstorm by 10 minutes in. The facilitator (usually your CRO lead or growth PM) owns pulling this together 24 to 48 hours before the session, not during it.
+
+What goes in the packet:
+
+- **Funnel diagnostics.** Product view → add to cart → checkout → purchase, segmented by device and traffic source, pulled from GA4. Flag any step more than a few points off its trailing average. If you don't already have a habit of reading these weekly, our [GA4 funnel reports playbook](/blog/ga4-funnel-reports-that-drive-cro-decisions) covers the three reports worth pulling before every workshop.
+- **Session recordings.** 10 to 15 clips from Microsoft Clarity or Hotjar showing rage clicks, dead clicks, or abandoned scroll points on the pages your funnel data flagged. Clarity's free tier keeps roughly 30 days of recordings; Hotjar, now part of Contentsquare, holds up to 365 days on paid plans, which matters if you're diagnosing a seasonal pattern rather than last week's traffic.
+- **On-site survey themes.** Pull the last 4 to 6 weeks of responses from a Hotjar Ask or Typeform micro-survey ("what almost stopped you from buying today?"). Group into 3 to 5 recurring objections.
+- **Support ticket themes.** Ask your support lead for the top recurring questions or complaints tied to product pages, sizing, shipping, or checkout from the last month.
+- **Last quarter's test results.** Wins, losses, and anything inconclusive. A hypothesis that contradicts a result you already have needs to say why.
+
+If you're running your first workshop and don't have all five inputs yet, don't wait for a complete set. Run the [30-minute conversion audit](/blog/30-minute-ecommerce-conversion-audit-playbook) the week before instead. It's designed to produce exactly this kind of raw material fast, and it will surface enough for a first working session.
+
+## The 90-minute agenda
+
+| Time | Segment | Technique | Output |
+|---|---|---|---|
+| 0-10 min | Evidence review | Facilitator walks the packet, no discussion yet | Shared context, no debate |
+| 10-15 min | Reframe pain points | How Might We statements | 5-8 opportunity prompts |
+| 15-35 min | Generate hypotheses | 1-2-4-All (below) | 15-25 raw hypotheses |
+| 35-55 min | Write hypotheses | Hypothesis Kit format | 10-15 written statements |
+| 55-80 min | Score and prioritize | Dot vote, then PXL | 3-5 hypotheses in the active queue |
+| 80-90 min | Assign and retro | Owner + effort estimate per hypothesis, quick process check | Owned backlog additions |
+
+Cap attendance at 5 to 7 people: the CRO lead, a designer, a developer, someone from analytics, and someone from support or customer success. More than that and the silent-generation steps stop being silent.
+
+## Reframe pain points before you generate hypotheses
+
+Raw research findings ("23% of mobile users rage-click the size selector") are diagnoses, not hypotheses. Before the room starts generating ideas, spend 5 minutes converting the sharpest 5 to 8 findings from the evidence packet into How Might We prompts, a reframing technique that came out of Procter & Gamble and was later popularized by IDEO and the Google Ventures Design Sprint. "23% of mobile users rage-click the size selector" becomes "How might we make size selection feel resolved on a phone screen without a second tap?" The reframe is what the next step actually generates ideas against.
+
+## Generate hypotheses without groupthink: run 1-2-4-All
+
+This is the core technique of the workshop, borrowed from the Liberating Structures facilitation library (Henri Lipmanowicz and Keith McCandless), and it directly counters the Diehl and Stroebe finding above by keeping idea generation individual until the very end.
+
+1. **1 minute, alone.** Everyone silently writes as many hypothesis seeds as they can against the How Might We prompts. No talking. This is the step most facilitators skip, and it's the one doing the most work: it guarantees the quiet analyst's idea reaches the table before the loudest voice in the room speaks.
+2. **2 minutes, in pairs.** Compare notes with one other person, combine or sharpen ideas.
+3. **5 minutes, in fours.** Pairs merge into groups of four, converge on their strongest 2 to 3 combined ideas.
+4. **7 minutes, whole group.** Each group of four reports their top ideas to the room. The facilitator captures everything on a shared board (Miro or FigJam both work; Miro's 2026 AI features can cluster sticky notes into themes automatically if the raw output runs long).
+
+By the end you should have 15 to 25 raw hypothesis seeds on the board, generated without anyone dominating the room.
+
+## Turn raw seeds into hypotheses with the "Because" format
+
+A hypothesis seed is not a hypothesis yet. It needs a fixed structure that forces evidence, change, and expected outcome into one sentence, or it's just an opinion with better formatting. We use a version of Craig Sullivan's Hypothesis Kit, refined over several years with input from Booking.com's experimentation team:
+
+> **Because** we saw [evidence], we believe that **doing** [change] **for** [audience] **will cause** [impact]. **We'll know this is true when we see** [data signal] **and** [qualitative feedback].
+
+Worked example from the evidence packet above:
+
+> Because Clarity recordings show 23% of mobile sessions rage-click the size selector before abandoning the PDP, we believe that replacing the dropdown with tap-target size buttons and an inline fit-guide link for new mobile visitors will increase mobile add-to-cart rate. We'll know this is true when we see mobile ATC rate rise without a drop in average order value, and when post-purchase survey mentions of sizing confusion decline.
+
+Every hypothesis needs an owner assigned before it leaves this step. An unowned hypothesis is a wish. If your team already runs the broader "Because... we believe... will cause" template from our [experimentation system playbook](/blog/cro-in-2026-build-an-experimentation-system-not-ideas), this is the same family, tightened with the explicit "we'll know this is true when" clause so scoring in the next step has something concrete to check against.
+
+## Score live, don't defer it to Slack
+
+Scoring after the meeting is where hypotheses go to die, or worse, where they get reordered later by whoever pings the loudest in Slack. Score in the room, in two passes.
+
+**Pass 1: dot vote.** Give each person 3 dots (sticky notes or digital dots on the board). Vote on gut appeal only, no discussion. This surfaces where the room's energy already is before formal scoring anchors it.
+
+**Pass 2: PXL score every hypothesis that got at least one dot.** PXL replaces subjective 1-10 ratings with roughly a dozen yes/no questions (above the fold, backed by a recording, backed by a survey, easy to implement, and so on), scored out of 12. It's harder to argue with a checkable fact than a gut feeling, which is the entire point. We cover the scoring mechanics, a worked PDP example, and how PXL compares to ICE and PIE in our [CRO testing frameworks comparison](/blog/cro-testing-frameworks-ice-pie-pxl-compared). Anything scoring under 5 out of 12 goes to a "needs more evidence" column instead of the active queue.
+
+**The devil's advocate rule.** Rotate one person each session (pick by calendar week, not by volunteer, or the same person always ends up doing it) whose only job during scoring is to argue against the top-scoring hypothesis. If they can't find a real objection, the score holds. If they can, the room has to answer it before the hypothesis moves forward. This single role is doing the work Janis's groupthink research says a room needs and almost never assigns on its own.
+
+Cap the output at 3 to 5 hypotheses entering the active test queue per session. A queue of 20 "prioritized" ideas is not prioritized. It is the same unsorted backlog with a scoring column bolted on.
+
+## Make it a cadence, not a one-off
+
+A single great workshop produces one good backlog. A recurring one produces a system.
+
+- **Run it every 2 to 4 weeks**, timed to land a few days after your funnel diagnostics and recordings refresh, so the evidence packet is never more than a week stale.
+- **Move idea generation async when the team is remote or hybrid.** Have people submit their silent 1-minute round in a shared Miro or FigJam board 24 hours ahead, then run pairs, fours, and scoring live. This preserves the individual-first structure that makes 1-2-4-All work while cutting live meeting time by a third.
+- **Retro the workshop itself, not just the hypotheses.** Spend the last 5 minutes on Start / Stop / Continue for the process: is the evidence packet arriving on time, is the devil's advocate rule actually changing outcomes, are too many hypotheses stalling in "needs more evidence." Treat the format as a testable system too.
+
+## What to ship out of the room
+
+By the end of a working session you should have 3 to 5 hypotheses, each written in the "Because... we believe... will cause" format, each PXL-scored above 5, each with a named owner and an effort estimate. That is a week of build work queued, not a wish list.
+
+Run the [free store audit checklist](/) before your next session if your evidence packet is thin. It surfaces exactly the kind of funnel leaks and friction points that turn into workshop-ready hypotheses, and it's the fastest way to walk into the room with something real to argue about.
