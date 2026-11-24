@@ -49,3 +49,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 remotion/node_modules/
+
+# OpenNext / Cloudflare
+.open-next
+.wrangler
+.dev.vars
+.env*
+.vercel

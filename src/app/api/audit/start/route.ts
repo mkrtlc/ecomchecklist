@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse, after } from 'next/server';
 import { createAudit } from '@/lib/supabase';
 
 export async function POST(request: NextRequest) {
@@ -55,13 +55,18 @@ export async function POST(request: NextRequest) {
     const runUrl = new URL('/api/audit/run', request.url);
 
     // Fire and forget - trigger the audit runner
-    fetch(runUrl.toString(), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ auditId: audit.id }),
-    }).catch(err => {
-      console.error('Failed to trigger audit run:', err);
-    });
+    // after() keeps the trigger alive past the response (waitUntil on Workers)
+    after(() =>
+      fetch(runUrl.toString(), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ auditId: audit.id }),
+      })
+        .then(() => undefined)
+        .catch(err => {
+          console.error('Failed to trigger audit run:', err);
+        })
+    );
 
     return NextResponse.json({
       id: audit.id,
